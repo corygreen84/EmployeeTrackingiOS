@@ -13,9 +13,13 @@
 		E5B9D0D5228A1A5500D0026E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D4228A1A5500D0026E /* Assets.xcassets */; };
 		E5B9D0D8228A1A5500D0026E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D6228A1A5500D0026E /* LaunchScreen.storyboard */; };
 		E5B9D0E0228A1E1A00D0026E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0DF228A1E1A00D0026E /* GoogleService-Info.plist */; };
+		E6AF2431F7F7894F3BAEF5DD /* Pods_Employee_Tracking_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB1F0FBAEB1DF0BA2DDB5615 /* Pods_Employee_Tracking_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26D0C3B7EEBA1C49EEDFF2F2 /* Pods-Employee Tracking iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Employee Tracking iOS.release.xcconfig"; path = "Target Support Files/Pods-Employee Tracking iOS/Pods-Employee Tracking iOS.release.xcconfig"; sourceTree = "<group>"; };
+		BB1F0FBAEB1DF0BA2DDB5615 /* Pods_Employee_Tracking_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Employee_Tracking_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D76C73BF83674A48503C03AE /* Pods-Employee Tracking iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Employee Tracking iOS.debug.xcconfig"; path = "Target Support Files/Pods-Employee Tracking iOS/Pods-Employee Tracking iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E5B9D0CA228A1A5400D0026E /* Employee Tracking iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Employee Tracking iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5B9D0CD228A1A5400D0026E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5B9D0CF228A1A5400D0026E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,17 +35,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6AF2431F7F7894F3BAEF5DD /* Pods_Employee_Tracking_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61407620A341B4ECC35CC0F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB1F0FBAEB1DF0BA2DDB5615 /* Pods_Employee_Tracking_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB88BB43A540044224B2B26B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D76C73BF83674A48503C03AE /* Pods-Employee Tracking iOS.debug.xcconfig */,
+				26D0C3B7EEBA1C49EEDFF2F2 /* Pods-Employee Tracking iOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E5B9D0C1228A1A5400D0026E = {
 			isa = PBXGroup;
 			children = (
 				E5B9D0CC228A1A5400D0026E /* Employee Tracking iOS */,
 				E5B9D0CB228A1A5400D0026E /* Products */,
+				CB88BB43A540044224B2B26B /* Pods */,
+				61407620A341B4ECC35CC0F7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E5B9D0DC228A1A5500D0026E /* Build configuration list for PBXNativeTarget "Employee Tracking iOS" */;
 			buildPhases = (
+				93D4552798B160A0116F36BA /* [CP] Check Pods Manifest.lock */,
 				E5B9D0C6228A1A5400D0026E /* Sources */,
 				E5B9D0C7228A1A5400D0026E /* Frameworks */,
 				E5B9D0C8228A1A5400D0026E /* Resources */,
+				C42735FEC0B51E2F1A79D73D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,6 +160,55 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		93D4552798B160A0116F36BA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Employee Tracking iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C42735FEC0B51E2F1A79D73D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Employee Tracking iOS/Pods-Employee Tracking iOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Employee Tracking iOS/Pods-Employee Tracking iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E5B9D0C6228A1A5400D0026E /* Sources */ = {
@@ -284,6 +360,7 @@
 		};
 		E5B9D0DD228A1A5500D0026E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D76C73BF83674A48503C03AE /* Pods-Employee Tracking iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,6 +379,7 @@
 		};
 		E5B9D0DE228A1A5500D0026E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26D0C3B7EEBA1C49EEDFF2F2 /* Pods-Employee Tracking iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
