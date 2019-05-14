@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var adminButton: UIButton!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
     
     
     
@@ -32,10 +33,20 @@ class ViewController: UIViewController {
     
     
     @IBAction func signInOnClick(_ sender: UIButton) {
+        
+        
     }
     @IBAction func signUpOnClick(_ sender: UIButton) {
+        
+        
     }
+    @IBAction func forgotPasswordOnClick(_ sender: UIButton) {
+    }
+    
+    
     @IBAction func adminOnClick(_ sender: UIButton) {
+        
+        
     }
     
 

@@ -13,6 +13,7 @@
 		E5B9D0D5228A1A5500D0026E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D4228A1A5500D0026E /* Assets.xcassets */; };
 		E5B9D0D8228A1A5500D0026E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D6228A1A5500D0026E /* LaunchScreen.storyboard */; };
 		E5B9D0E0228A1E1A00D0026E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0DF228A1E1A00D0026E /* GoogleService-Info.plist */; };
+		E5D45A8E228B278100EDC565 /* FirebaseSignInSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D45A8D228B278100EDC565 /* FirebaseSignInSignUp.swift */; };
 		E6AF2431F7F7894F3BAEF5DD /* Pods_Employee_Tracking_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB1F0FBAEB1DF0BA2DDB5615 /* Pods_Employee_Tracking_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		E5B9D0D7228A1A5500D0026E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5B9D0D9228A1A5500D0026E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5B9D0DF228A1E1A00D0026E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E5D45A8D228B278100EDC565 /* FirebaseSignInSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSignInSignUp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +58,6 @@
 				D76C73BF83674A48503C03AE /* Pods-Employee Tracking iOS.debug.xcconfig */,
 				26D0C3B7EEBA1C49EEDFF2F2 /* Pods-Employee Tracking iOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -88,8 +89,17 @@
 				E5B9D0D6228A1A5500D0026E /* LaunchScreen.storyboard */,
 				E5B9D0D9228A1A5500D0026E /* Info.plist */,
 				E5B9D0DF228A1E1A00D0026E /* GoogleService-Info.plist */,
+				E5D45A8F228B278A00EDC565 /* Login Stuff */,
 			);
 			path = "Employee Tracking iOS";
+			sourceTree = "<group>";
+		};
+		E5D45A8F228B278A00EDC565 /* Login Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				E5D45A8D228B278100EDC565 /* FirebaseSignInSignUp.swift */,
+			);
+			path = "Login Stuff";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5B9D0D0228A1A5400D0026E /* ViewController.swift in Sources */,
+				E5D45A8E228B278100EDC565 /* FirebaseSignInSignUp.swift in Sources */,
 				E5B9D0CE228A1A5400D0026E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
