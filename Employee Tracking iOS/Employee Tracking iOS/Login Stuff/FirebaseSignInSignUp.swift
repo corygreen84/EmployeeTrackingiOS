@@ -13,8 +13,19 @@ class FirebaseSignInSignUp: NSObject {
     override init() {
         super.init()
         
+    }
+    
+    // signing up //
+    func signUp(email: String, password: String){
         
     }
+    
+    // signing in //
+    func signIn(email: String, password: String){
+        
+    }
+    
+    
 }
 
 
