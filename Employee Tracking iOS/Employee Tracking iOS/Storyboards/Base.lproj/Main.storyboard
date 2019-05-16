@@ -80,6 +80,7 @@
                         <outlet property="companyTextField" destination="Jr1-ys-aIB" id="9bg-va-BIc"/>
                         <outlet property="emailTextField" destination="s2Y-7F-s5A" id="d3O-Tm-se6"/>
                         <outlet property="employeeNumberTextField" destination="ATK-ov-kOw" id="b02-md-ePf"/>
+                        <outlet property="mainBackgroundImage" destination="pKi-Ns-0vT" id="S5n-dR-6D1"/>
                         <outlet property="signInButton" destination="tJa-G6-zQO" id="oOs-jN-8jC"/>
                     </connections>
                 </viewController>

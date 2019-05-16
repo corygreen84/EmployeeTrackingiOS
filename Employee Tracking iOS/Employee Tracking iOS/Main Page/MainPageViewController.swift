@@ -20,9 +20,24 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        // adding a log off button in the nav bar //
+        let logOffButton:UIBarButtonItem = UIBarButtonItem(title: "Log off", style: UIBarButtonItem.Style.plain, target: self, action: #selector(logOffOnClick))
+        self.navigationItem.rightBarButtonItem = logOffButton
+        
+        self.navigationItem.setHidesBackButton(true, animated: true)
 
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
+    }
+    
+    
+    
+    
+    @objc func logOffOnClick(){
+        
+        CurrentUser.sharedInstance.deleteUser()
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -42,5 +57,9 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.layer.cornerRadius = 5.0
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Selected \(indexPath.row)")
     }
 }

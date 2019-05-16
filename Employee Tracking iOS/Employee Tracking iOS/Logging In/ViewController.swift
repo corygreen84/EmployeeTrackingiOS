@@ -15,6 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var companyTextField: UITextField!
     @IBOutlet weak var employeeNumberTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var mainBackgroundImage: UIImageView!
     
     var emailToggle = false
     var companyToggle = false
@@ -22,6 +23,14 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        // right away we should check to see if there is any data saved for the user //
+        if(CurrentUser.sharedInstance.checkToSeeIfUserExists()){
+            let mainPage = self.storyboard?.instantiateViewController(withIdentifier: "Main") as! MainPageViewController
+            self.navigationController?.pushViewController(mainPage, animated: true)
+        }
         
         emailTextField.delegate = self
         companyTextField.delegate = self
@@ -32,9 +41,20 @@ class ViewController: UIViewController, UITextFieldDelegate{
         companyTextField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
         employeeNumberTextField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
         
+        
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        view.addGestureRecognizer(tapGesture)
+        
         signInButton.isEnabled = false
         signInButton.backgroundColor = Colors.sharedInstance.darkGrey
         signInButton.layer.cornerRadius = 5.0
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        emailTextField.text = ""
+        companyTextField.text = ""
+        employeeNumberTextField.text = ""
     }
     
     
@@ -65,9 +85,18 @@ class ViewController: UIViewController, UITextFieldDelegate{
         toggleSignInButton()
     }
     
+    @objc func dismissKeyBoard(){
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     
     
+
     // checking to make sure the text field is not blank //
     func checkForBlankTextField(textField:String) -> Bool{
         if(textField != ""){
@@ -119,6 +148,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                         documentData["employeeNumber"] as? Int == empTextField){
                         
                         CurrentUser.sharedInstance.userID = document["id"] as? String
+                        CurrentUser.sharedInstance.userCompany = self.companyTextField.text!
                         CurrentUser.sharedInstance.userFirstName = document["first"] as? String
                         CurrentUser.sharedInstance.userLastName = document["last"] as? String
                         CurrentUser.sharedInstance.userEmail = document["email"] as? String
@@ -131,7 +161,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                         
                         // passing the data to the next view //
                         let mainPage = self.storyboard?.instantiateViewController(withIdentifier: "Main") as! MainPageViewController
-                            self.navigationController?.pushViewController(mainPage, animated: true)
+                        self.navigationController?.pushViewController(mainPage, animated: true)
                         return
                     }else{
                         exists = false
