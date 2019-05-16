@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController, ReturnSignInSignUpDelegate, UITextFieldDelegate {
 
@@ -23,6 +24,8 @@ class ViewController: UIViewController, ReturnSignInSignUpDelegate, UITextFieldD
     
     var emailAddressCorrect = false
     var passwordCorrect = false
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +47,17 @@ class ViewController: UIViewController, ReturnSignInSignUpDelegate, UITextFieldD
         self.signInButton.isEnabled = false
         self.signInButton.setTitleColor(UIColor.white, for: UIControl.State.disabled)
         self.signInButton.backgroundColor = Colors.sharedInstance.darkGrey
+        
+        
+        _ = Auth.auth().addStateDidChangeListener { (auth, user) in
+            if(user != nil){
+                let mainPage = self.storyboard?.instantiateViewController(withIdentifier: "Main") as! MainPageViewController
+                self.navigationController?.pushViewController(mainPage, animated: true)
+            }
+        }
     }
     
-    // call back from the sign in or create user process //
-    func returnSignUpSignInStatus(signInOrCreate: Bool, success: Bool, title: String, message: String) {
-        
-        self.alertUser(title: title, message: message)
-    }
+    
     
     
     
@@ -103,22 +110,49 @@ class ViewController: UIViewController, ReturnSignInSignUpDelegate, UITextFieldD
     // button clicks //
     @IBAction func signInOnClick(_ sender: UIButton) {
         
+        // signing in the user //
         signInAndCreate?.signIn(email: usernameTextField.text!, password: passwordTextField.text!)
     }
     
     @IBAction func signUpOnClick(_ sender: UIButton) {
         
+        // sending the user to the sign up view //
         let signUp = self.storyboard?.instantiateViewController(withIdentifier: "Create") as! CreateUserViewController
         self.navigationController?.pushViewController(signUp, animated: true)
     
     }
     
     @IBAction func forgotPasswordOnClick(_ sender: UIButton) {
-        
+        var emailTextField = usernameTextField.text
+        if(textFieldCheck?.checkTextFieldForBlanks(text: emailTextField!) == true && textFieldCheck?.checkEmailFieldForCredentials(text: emailTextField!) == true){
+            
+            // send out a reset email to the provided email address //
+            Auth.auth().sendPasswordReset(withEmail: emailTextField!) { (error) in
+                if(error == nil){
+                    self.alertUser(title: "Success", message: "Success!  We have sent a reset email to the email address you provided.  Follow the link to reset your password then try logging back in.")
+                }
+            }
+            
+        }else{
+            alertUser(title: "Error", message: "Please enter a valid email address.")
+        }
     }
     
     
     @IBAction func adminOnClick(_ sender: UIButton) {
+        
+    }
+    
+    
+    // call back from the sign in or create user process //
+    func returnSignUpSignInStatus(signInOrCreate: Bool, success: Bool, title: String, message: String) {
+        
+        if(success){
+            let mainPage = self.storyboard?.instantiateViewController(withIdentifier: "Main") as! MainPageViewController
+            self.navigationController?.pushViewController(mainPage, animated: true)
+        }else{
+            self.alertUser(title: title, message: message)
+        }
         
     }
     
