@@ -12,17 +12,21 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var mainCollectionView: UICollectionView!
     
+    var employee:CurrentUser?
+    
     var cellNames = ["Jobs", "Communication"]
     var cellColors = [Colors.sharedInstance.lightBlue, Colors.sharedInstance.darkGrey]
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.mainCollectionView.delegate = self
-        self.mainCollectionView.dataSource = self
+
+        mainCollectionView.delegate = self
+        mainCollectionView.dataSource = self
         
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellNames.count
@@ -32,24 +36,17 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainCollectionViewCell", for: indexPath) as! MainPageCustomCollectionViewCollectionViewCell
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "customCell", for: indexPath) as! CustomCollectionCell
+
         cell.mainCollectionViewLabel.text = cellNames[indexPath.row]
         cell.backgroundColor = cellColors[indexPath.row]
         
-        cell.layer.cornerRadius = 10.0
+        cell.layer.cornerRadius = 5.0
         
         return cell
     }
     
-    
-    
-    
-    
+
 
 }

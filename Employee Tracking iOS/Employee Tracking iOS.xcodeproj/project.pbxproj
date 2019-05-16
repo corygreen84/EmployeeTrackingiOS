@@ -13,11 +13,9 @@
 		E5B9D0D5228A1A5500D0026E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D4228A1A5500D0026E /* Assets.xcassets */; };
 		E5B9D0D8228A1A5500D0026E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D6228A1A5500D0026E /* LaunchScreen.storyboard */; };
 		E5B9D0E0228A1E1A00D0026E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0DF228A1E1A00D0026E /* GoogleService-Info.plist */; };
-		E5C3BC1A228DC76F00DC70BB /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC19228DC76F00DC70BB /* MainPageViewController.swift */; };
-		E5C3BC1D228DC7A500DC70BB /* MainPageCustomCollectionViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC1C228DC7A500DC70BB /* MainPageCustomCollectionViewCollectionViewCell.swift */; };
-		E5D45A8E228B278100EDC565 /* FirebaseSignInSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D45A8D228B278100EDC565 /* FirebaseSignInSignUp.swift */; };
-		E5D45A93228B48A800EDC565 /* CreateUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D45A92228B48A800EDC565 /* CreateUserViewController.swift */; };
-		E5D45A95228B612900EDC565 /* TextFieldChecks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D45A94228B612900EDC565 /* TextFieldChecks.swift */; };
+		E5C3BC23228DE1DA00DC70BB /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC22228DE1DA00DC70BB /* MainPageViewController.swift */; };
+		E5C3BC26228DE24D00DC70BB /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC25228DE24D00DC70BB /* CustomCollectionCell.swift */; };
+		E5C3BC28228DEA0300DC70BB /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */; };
 		E5D45A97228B65C700EDC565 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D45A96228B65C700EDC565 /* Colors.swift */; };
 		E6AF2431F7F7894F3BAEF5DD /* Pods_Employee_Tracking_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB1F0FBAEB1DF0BA2DDB5615 /* Pods_Employee_Tracking_iOS.framework */; };
 /* End PBXBuildFile section */
@@ -34,11 +32,9 @@
 		E5B9D0D7228A1A5500D0026E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5B9D0D9228A1A5500D0026E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5B9D0DF228A1E1A00D0026E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E5C3BC19228DC76F00DC70BB /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
-		E5C3BC1C228DC7A500DC70BB /* MainPageCustomCollectionViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageCustomCollectionViewCollectionViewCell.swift; sourceTree = "<group>"; };
-		E5D45A8D228B278100EDC565 /* FirebaseSignInSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSignInSignUp.swift; sourceTree = "<group>"; };
-		E5D45A92228B48A800EDC565 /* CreateUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserViewController.swift; sourceTree = "<group>"; };
-		E5D45A94228B612900EDC565 /* TextFieldChecks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldChecks.swift; sourceTree = "<group>"; };
+		E5C3BC22228DE1DA00DC70BB /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
+		E5C3BC25228DE24D00DC70BB /* CustomCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
+		E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E5D45A96228B65C700EDC565 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,48 +90,32 @@
 			children = (
 				E5D45A9A228B674900EDC565 /* App Delegate */,
 				E5D45A9D228B67AC00EDC565 /* Logging In */,
-				E5C3BC1B228DC77400DC70BB /* Main Page */,
+				E5C3BC24228DE1E600DC70BB /* Main Page */,
 				E5D45A9B228B675700EDC565 /* Storyboards */,
 				E5B9D0D4228A1A5500D0026E /* Assets.xcassets */,
 				E5B9D0D9228A1A5500D0026E /* Info.plist */,
 				E5D45A9C228B676200EDC565 /* plists */,
-				E5D45A96228B65C700EDC565 /* Colors.swift */,
+				E5C3BC21228DDDA600DC70BB /* Colors */,
+				E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */,
 			);
 			path = "Employee Tracking iOS";
 			sourceTree = "<group>";
 		};
-		E5C3BC1B228DC77400DC70BB /* Main Page */ = {
+		E5C3BC21228DDDA600DC70BB /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				E5C3BC19228DC76F00DC70BB /* MainPageViewController.swift */,
-				E5C3BC1C228DC7A500DC70BB /* MainPageCustomCollectionViewCollectionViewCell.swift */,
+				E5D45A96228B65C700EDC565 /* Colors.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		E5C3BC24228DE1E600DC70BB /* Main Page */ = {
+			isa = PBXGroup;
+			children = (
+				E5C3BC22228DE1DA00DC70BB /* MainPageViewController.swift */,
+				E5C3BC25228DE24D00DC70BB /* CustomCollectionCell.swift */,
 			);
 			path = "Main Page";
-			sourceTree = "<group>";
-		};
-		E5D45A8F228B278A00EDC565 /* Login Stuff (Firebase) */ = {
-			isa = PBXGroup;
-			children = (
-				E5D45A8D228B278100EDC565 /* FirebaseSignInSignUp.swift */,
-				E5D45A94228B612900EDC565 /* TextFieldChecks.swift */,
-			);
-			path = "Login Stuff (Firebase)";
-			sourceTree = "<group>";
-		};
-		E5D45A98228B670200EDC565 /* Sign Up */ = {
-			isa = PBXGroup;
-			children = (
-				E5D45A92228B48A800EDC565 /* CreateUserViewController.swift */,
-			);
-			path = "Sign Up";
-			sourceTree = "<group>";
-		};
-		E5D45A99228B671300EDC565 /* Main Login */ = {
-			isa = PBXGroup;
-			children = (
-				E5B9D0CF228A1A5400D0026E /* ViewController.swift */,
-			);
-			path = "Main Login";
 			sourceTree = "<group>";
 		};
 		E5D45A9A228B674900EDC565 /* App Delegate */ = {
@@ -166,9 +146,7 @@
 		E5D45A9D228B67AC00EDC565 /* Logging In */ = {
 			isa = PBXGroup;
 			children = (
-				E5D45A99228B671300EDC565 /* Main Login */,
-				E5D45A98228B670200EDC565 /* Sign Up */,
-				E5D45A8F228B278A00EDC565 /* Login Stuff (Firebase) */,
+				E5B9D0CF228A1A5400D0026E /* ViewController.swift */,
 			);
 			path = "Logging In";
 			sourceTree = "<group>";
@@ -308,14 +286,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5C3BC23228DE1DA00DC70BB /* MainPageViewController.swift in Sources */,
+				E5C3BC26228DE24D00DC70BB /* CustomCollectionCell.swift in Sources */,
 				E5B9D0D0228A1A5400D0026E /* ViewController.swift in Sources */,
-				E5C3BC1A228DC76F00DC70BB /* MainPageViewController.swift in Sources */,
-				E5C3BC1D228DC7A500DC70BB /* MainPageCustomCollectionViewCollectionViewCell.swift in Sources */,
 				E5D45A97228B65C700EDC565 /* Colors.swift in Sources */,
-				E5D45A95228B612900EDC565 /* TextFieldChecks.swift in Sources */,
-				E5D45A8E228B278100EDC565 /* FirebaseSignInSignUp.swift in Sources */,
+				E5C3BC28228DEA0300DC70BB /* CurrentUser.swift in Sources */,
 				E5B9D0CE228A1A5400D0026E /* AppDelegate.swift in Sources */,
-				E5D45A93228B48A800EDC565 /* CreateUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

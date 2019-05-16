@@ -1,5 +1,5 @@
 //
-//  MainPageCustomCollectionViewCollectionViewCell.swift
+//  CustomCollectionCell.swift
 //  Employee Tracking iOS
 //
 //  Created by Cory Green on 5/16/19.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class MainPageCustomCollectionViewCollectionViewCell: UICollectionViewCell {
-    
+class CustomCollectionCell: UICollectionViewCell {
     @IBOutlet weak var mainCollectionViewLabel: UILabel!
+    
     @IBOutlet weak var mainCollectionViewImage: UIImageView!
 }
