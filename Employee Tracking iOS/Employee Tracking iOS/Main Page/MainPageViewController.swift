@@ -18,14 +18,11 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
     var cellColors = [Colors.sharedInstance.lightBlue, Colors.sharedInstance.darkGrey]
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -46,7 +43,4 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         return cell
     }
-    
-
-
 }

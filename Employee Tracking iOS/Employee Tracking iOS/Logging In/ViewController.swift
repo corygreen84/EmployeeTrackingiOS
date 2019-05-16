@@ -107,32 +107,43 @@ class ViewController: UIViewController, UITextFieldDelegate{
         let ref = db.collection("companies").document(companyTextField.text!).collection("employees")
         ref.getDocuments { (doc, error) in
             if(doc != nil && error == nil){
-                let newUser:CurrentUser = CurrentUser()
+                if(doc!.documents.count == 0){
+                    self.alertUser(title: "Error signing in.", message: "There was an error signing in.  Please check your log in credentials and try signing in again or contact your admin.")
+                }
+                //let newUser:CurrentUser = CurrentUser()
+                var exists = false
                 for document in doc!.documents{
                     var documentData = document.data()
-                    if(documentData["email"] as? String == self.emailTextField.text){
+                    let empTextField:Int? = Int(self.employeeNumberTextField.text!)
+                    if(documentData["email"] as? String == self.emailTextField.text &&
+                        documentData["employeeNumber"] as? Int == empTextField){
                         
-                        newUser.userID = documentData["id"] as? String
-                        newUser.userEmail = documentData["email"] as? String
-                        newUser.userFirstName = documentData["first"] as? String
-                        newUser.userLastName = documentData["last"] as? String
-                        newUser.userPhoneNumber = documentData["phoneNumber"] as? Int
-                        newUser.userNumber = documentData["employeeNumber"] as? Int
-                        newUser.userJobs = documentData["jobs"] as? [String]
+                        CurrentUser.sharedInstance.userID = document["id"] as? String
+                        CurrentUser.sharedInstance.userFirstName = document["first"] as? String
+                        CurrentUser.sharedInstance.userLastName = document["last"] as? String
+                        CurrentUser.sharedInstance.userEmail = document["email"] as? String
+                        CurrentUser.sharedInstance.userStatus = document["status"] as? Bool
+                        CurrentUser.sharedInstance.userPhoneNumber = document["phoneNumber"] as? Int
+                        CurrentUser.sharedInstance.userNumber = document["employeeNumber"] as? Int
+                        CurrentUser.sharedInstance.userJobs = document["jobs"] as? [String]
+                        
+                        CurrentUser.sharedInstance.saveUserToDefaults()
+                        
+                        // passing the data to the next view //
+                        let mainPage = self.storyboard?.instantiateViewController(withIdentifier: "Main") as! MainPageViewController
+                            self.navigationController?.pushViewController(mainPage, animated: true)
+                        return
+                    }else{
+                        exists = false
                     }
+                    
                 }
                 
-                // passing the data to the next view //
-                let mainPage = self.storyboard?.instantiateViewController(withIdentifier: "Main") as! MainPageViewController
-                mainPage.employee = newUser
-                self.navigationController?.pushViewController(mainPage, animated: true)
-            }else{
-                self.alertUser(title: "Error signing in.", message: "There was an error signing in.  Please check your log in credentials and try signing in again or contact your admin.")
-                
+                if(exists == false){
+                    self.alertUser(title: "Error signing in.", message: "There was an error signing in.  Please check your log in credentials and try signing in again or contact your admin.")
+                }
             }
         }
-        
-        
     }
     
     
@@ -143,6 +154,5 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.present(alert, animated: true, completion: nil)
     
     }
-    
 }
 
