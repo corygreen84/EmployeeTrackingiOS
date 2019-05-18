@@ -25,6 +25,8 @@ class CurrentUser: NSObject {
     
     
     func deleteUser(){
+        
+        self.changeStatusInFirebase(status: false)
         userID = nil
         userCompany = nil
         userFirstName = nil
@@ -35,8 +37,8 @@ class CurrentUser: NSObject {
         userStatus = nil
         userJobs = nil
         
-        
         self.deleteUserDefaults()
+
     }
     
     func saveUserToDefaults(){
@@ -70,9 +72,6 @@ class CurrentUser: NSObject {
         }else{
             return true
         }
-        
-        
-        
     }
     
     
@@ -95,7 +94,7 @@ class CurrentUser: NSObject {
     }
     
     func deleteUserDefaults(){
-        self.changeStatusInFirebase(status: false)
+        
         UserDefaults.standard.removeObject(forKey: "userId")
         UserDefaults.standard.removeObject(forKey: "userCompany")
         UserDefaults.standard.removeObject(forKey: "userFirstName")
@@ -109,22 +108,18 @@ class CurrentUser: NSObject {
     
     func changeStatusInFirebase(status:Bool){
         let db = Firestore.firestore()
-        let ref = db.collection("companies").document(userCompany!).collection("employees").document(userID!)
-        ref.updateData(["status": status]){err in
-            if let err = err{
-                print("error writting to document")
-            }else{
-                print("document successfully updated")
+        
+        if(userID != nil && userCompany != nil){
+            let ref = db.collection("companies").document(userCompany!).collection("employees").document(userID!)
+            ref.updateData(["status": status]){err in
+                if let err = err{
+                    print("error writting to document")
+                }else{
+                    print("in here....")
+                    self.deleteUserDefaults()
+                }
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
