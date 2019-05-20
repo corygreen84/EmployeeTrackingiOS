@@ -18,6 +18,9 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
     var cellColors = [Colors.sharedInstance.lightBlue, Colors.sharedInstance.darkGrey]
     
     
+    var locationTracking:GPSTracking?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -29,6 +32,9 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
 
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
+        
+        locationTracking = GPSTracking()
+        
     }
     
     
@@ -41,7 +47,7 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellNames.count
+        return 1
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -60,6 +66,9 @@ class MainPageViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected \(indexPath.row)")
+        if(indexPath.row == 0){
+            let jobView = self.storyboard?.instantiateViewController(withIdentifier: "Jobs") as! ListOfJobsViewController
+            self.navigationController?.pushViewController(jobView, animated: true)
+        }
     }
 }

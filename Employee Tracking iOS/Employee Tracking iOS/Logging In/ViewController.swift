@@ -136,14 +136,19 @@ class ViewController: UIViewController, UITextFieldDelegate{
         let ref = db.collection("companies").document(companyTextField.text!).collection("employees")
         ref.getDocuments { (doc, error) in
             if(doc != nil && error == nil){
+                
+                // if the doc doesnt exist //
                 if(doc!.documents.count == 0){
                     self.alertUser(title: "Error signing in.", message: "There was an error signing in.  Please check your log in credentials and try signing in again or contact your admin.")
                 }
-                //let newUser:CurrentUser = CurrentUser()
+                
+                
                 var exists = false
                 for document in doc!.documents{
                     var documentData = document.data()
                     let empTextField:Int? = Int(self.employeeNumberTextField.text!)
+                    
+                    // making sure the email and employee number line up //
                     if(documentData["email"] as? String == self.emailTextField.text &&
                         documentData["employeeNumber"] as? Int == empTextField){
                         

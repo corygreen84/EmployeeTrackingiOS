@@ -17,6 +17,10 @@
 		E5C3BC26228DE24D00DC70BB /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC25228DE24D00DC70BB /* CustomCollectionCell.swift */; };
 		E5C3BC28228DEA0300DC70BB /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */; };
 		E5D45A97228B65C700EDC565 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D45A96228B65C700EDC565 /* Colors.swift */; };
+		E5E1E76122931138000C36DA /* GPSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E1E76022931138000C36DA /* GPSTracking.swift */; };
+		E5E1E765229329E3000C36DA /* ListOfJobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E1E764229329E3000C36DA /* ListOfJobsViewController.swift */; };
+		E5E1E76822932AC1000C36DA /* JobCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E1E76722932AC1000C36DA /* JobCellTableViewCell.swift */; };
+		E5E1E76A22933112000C36DA /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E1E76922933112000C36DA /* Job.swift */; };
 		E6AF2431F7F7894F3BAEF5DD /* Pods_Employee_Tracking_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB1F0FBAEB1DF0BA2DDB5615 /* Pods_Employee_Tracking_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +40,10 @@
 		E5C3BC25228DE24D00DC70BB /* CustomCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
 		E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E5D45A96228B65C700EDC565 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		E5E1E76022931138000C36DA /* GPSTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTracking.swift; sourceTree = "<group>"; };
+		E5E1E764229329E3000C36DA /* ListOfJobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfJobsViewController.swift; sourceTree = "<group>"; };
+		E5E1E76722932AC1000C36DA /* JobCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobCellTableViewCell.swift; sourceTree = "<group>"; };
+		E5E1E76922933112000C36DA /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +104,9 @@
 				E5B9D0D9228A1A5500D0026E /* Info.plist */,
 				E5D45A9C228B676200EDC565 /* plists */,
 				E5C3BC21228DDDA600DC70BB /* Colors */,
-				E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */,
+				E5E1E7632293119B000C36DA /* User Info */,
+				E5E1E76222931188000C36DA /* Location Tracking */,
+				E5E1E76622932A05000C36DA /* List of Jobs  */,
 			);
 			path = "Employee Tracking iOS";
 			sourceTree = "<group>";
@@ -151,6 +161,32 @@
 			path = "Logging In";
 			sourceTree = "<group>";
 		};
+		E5E1E76222931188000C36DA /* Location Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				E5E1E76022931138000C36DA /* GPSTracking.swift */,
+			);
+			path = "Location Tracking";
+			sourceTree = "<group>";
+		};
+		E5E1E7632293119B000C36DA /* User Info */ = {
+			isa = PBXGroup;
+			children = (
+				E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */,
+			);
+			path = "User Info";
+			sourceTree = "<group>";
+		};
+		E5E1E76622932A05000C36DA /* List of Jobs  */ = {
+			isa = PBXGroup;
+			children = (
+				E5E1E764229329E3000C36DA /* ListOfJobsViewController.swift */,
+				E5E1E76722932AC1000C36DA /* JobCellTableViewCell.swift */,
+				E5E1E76922933112000C36DA /* Job.swift */,
+			);
+			path = "List of Jobs ";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -185,6 +221,11 @@
 				TargetAttributes = {
 					E5B9D0C9228A1A5400D0026E = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -286,12 +327,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5E1E76822932AC1000C36DA /* JobCellTableViewCell.swift in Sources */,
 				E5C3BC23228DE1DA00DC70BB /* MainPageViewController.swift in Sources */,
 				E5C3BC26228DE24D00DC70BB /* CustomCollectionCell.swift in Sources */,
 				E5B9D0D0228A1A5400D0026E /* ViewController.swift in Sources */,
 				E5D45A97228B65C700EDC565 /* Colors.swift in Sources */,
+				E5E1E76122931138000C36DA /* GPSTracking.swift in Sources */,
 				E5C3BC28228DEA0300DC70BB /* CurrentUser.swift in Sources */,
 				E5B9D0CE228A1A5400D0026E /* AppDelegate.swift in Sources */,
+				E5E1E765229329E3000C36DA /* ListOfJobsViewController.swift in Sources */,
+				E5E1E76A22933112000C36DA /* Job.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

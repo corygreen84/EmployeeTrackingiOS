@@ -8,6 +8,11 @@
 
 import UIKit
 import Firebase
+import CoreLocation
+
+@objc protocol ReturnUserJobsDelegate{
+    func returnUsersJobs(jobs: [Job])
+}
 
 class CurrentUser: NSObject {
     static let sharedInstance = CurrentUser()
@@ -22,7 +27,9 @@ class CurrentUser: NSObject {
     var userStatus:Bool?
     var userJobs:[String]?
     
+    var userJobsArray:[Job] = []
     
+    var delegate:ReturnUserJobsDelegate?
     
     func deleteUser(){
         
@@ -106,18 +113,69 @@ class CurrentUser: NSObject {
         UserDefaults.standard.removeObject(forKey: "userJobs")
     }
     
+    
+    
+    
     func changeStatusInFirebase(status:Bool){
         let db = Firestore.firestore()
         
         if(userID != nil && userCompany != nil){
             let ref = db.collection("companies").document(userCompany!).collection("employees").document(userID!)
             ref.updateData(["status": status]){err in
-                if let err = err{
+                if err != nil{
                     print("error writting to document")
                 }else{
-                    print("in here....")
                     self.deleteUserDefaults()
                 }
+            }
+        }
+    }
+    
+    
+    
+    func loadUserJobIds(){
+        
+        let userInfo = CurrentUser.sharedInstance.loadUserDefaults()
+        
+        let userId = userInfo.0
+        let userCompany = userInfo.1
+        
+        let db = Firestore.firestore()
+        db.collection("companies").document(userCompany).collection("employees").document(userId).addSnapshotListener { (document, error) in
+            if(error == nil){
+                guard let data = document!.data() else{
+                    return
+                }
+
+                let arrayOfJobIds = data["jobs"] as? NSArray
+                for jobs in arrayOfJobIds!{
+                    self.loadJobWithId(company: userCompany, id: jobs as! String)
+                }
+            }
+        }
+    }
+    
+    func loadJobWithId(company:String ,id: String){
+        let db = Firestore.firestore()
+        self.userJobsArray.removeAll()
+        db.collection("companies").document(company).collection("jobs").document(id).addSnapshotListener { (document, error) in
+            if(error == nil){
+                guard let data = document?.data() else{
+                    return
+                }
+                
+                let locationGeoPoint = data["location"] as! GeoPoint
+                let locationCLLocation = CLLocation(latitude: locationGeoPoint.latitude, longitude: locationGeoPoint.longitude)
+                
+                let newJob:Job = Job()
+                newJob.jobID = document!.documentID
+                newJob.jobName = (data["name"] as! String)
+                newJob.jobAddress = (data["address"] as! String)
+                newJob.jobCoordinates = locationCLLocation
+                
+                self.userJobsArray.append(newJob)
+                
+                self.delegate?.returnUsersJobs(jobs: self.userJobsArray)
             }
         }
     }

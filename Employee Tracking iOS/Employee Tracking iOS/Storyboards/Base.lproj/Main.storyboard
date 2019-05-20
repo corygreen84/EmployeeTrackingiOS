@@ -169,6 +169,82 @@
             </objects>
             <point key="canvasLocation" x="1890" y="127"/>
         </scene>
+        <!--List Of Jobs View Controller-->
+        <scene sceneID="xOH-yX-C7e">
+            <objects>
+                <viewController storyboardIdentifier="Jobs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="opo-op-l9E" customClass="ListOfJobsViewController" customModule="Employee_Tracking_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ImE-xN-Lqq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PZr-oE-Bdw">
+                                <rect key="frame" x="20" y="191" width="374" height="671"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="jobCell" rowHeight="80" id="fRB-JV-T75" customClass="JobCellTableViewCell" customModule="Employee_Tracking_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fRB-JV-T75" id="CR0-vD-2Fs">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="79.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZQ-h7-zjt">
+                                                    <rect key="frame" x="20" y="11" width="163" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohe-mK-dos">
+                                                    <rect key="frame" x="20" y="48" width="334" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SY0-cH-WNR">
+                                                    <rect key="frame" x="191" y="11" width="163" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Ohe-mK-dos" secondAttribute="trailing" constant="20" id="3jU-xB-3ah"/>
+                                                <constraint firstItem="SY0-cH-WNR" firstAttribute="top" secondItem="CR0-vD-2Fs" secondAttribute="top" constant="11" id="98w-Dk-8kn"/>
+                                                <constraint firstItem="SY0-cH-WNR" firstAttribute="leading" secondItem="MZQ-h7-zjt" secondAttribute="trailing" constant="8" id="9wr-Ak-aJH"/>
+                                                <constraint firstItem="SY0-cH-WNR" firstAttribute="width" secondItem="MZQ-h7-zjt" secondAttribute="width" id="FSa-lC-NDd"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ohe-mK-dos" secondAttribute="bottom" constant="10.5" id="GZW-cJ-SKR"/>
+                                                <constraint firstItem="MZQ-h7-zjt" firstAttribute="top" secondItem="CR0-vD-2Fs" secondAttribute="top" constant="11" id="NYF-Oj-TZI"/>
+                                                <constraint firstAttribute="trailing" secondItem="SY0-cH-WNR" secondAttribute="trailing" constant="20" id="Ph2-bJ-Vuj"/>
+                                                <constraint firstItem="Ohe-mK-dos" firstAttribute="leading" secondItem="CR0-vD-2Fs" secondAttribute="leading" constant="20" id="VN9-ae-KOK"/>
+                                                <constraint firstItem="MZQ-h7-zjt" firstAttribute="leading" secondItem="CR0-vD-2Fs" secondAttribute="leading" constant="20" id="WKZ-Ir-SOt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="Ohe-mK-dos" id="Qf2-kW-jmF"/>
+                                            <outlet property="statusLabel" destination="SY0-cH-WNR" id="zdh-hn-Kph"/>
+                                            <outlet property="titleLabel" destination="MZQ-h7-zjt" id="WgS-Rd-eqD"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PZr-oE-Bdw" firstAttribute="top" secondItem="RDI-R6-icO" secondAttribute="top" constant="147" id="1a6-Ey-z1p"/>
+                            <constraint firstItem="PZr-oE-Bdw" firstAttribute="leading" secondItem="ImE-xN-Lqq" secondAttribute="leadingMargin" id="FRZ-Tb-dZ5"/>
+                            <constraint firstItem="PZr-oE-Bdw" firstAttribute="trailing" secondItem="ImE-xN-Lqq" secondAttribute="trailingMargin" id="OHf-M2-IBM"/>
+                            <constraint firstItem="PZr-oE-Bdw" firstAttribute="bottom" secondItem="RDI-R6-icO" secondAttribute="bottom" id="YLq-JD-0Lt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RDI-R6-icO"/>
+                    </view>
+                    <connections>
+                        <outlet property="mainList" destination="PZr-oE-Bdw" id="1gr-H8-2n1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vsx-An-Bxg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2666.666666666667" y="126.5625"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="bxn-w0-iQc">
             <objects>
