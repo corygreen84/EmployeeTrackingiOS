@@ -12,6 +12,7 @@ import CoreLocation
 
 @objc protocol ReturnUserJobsDelegate{
     func returnUsersJobs(jobs: [Job])
+    func usersJobsDoneLoading(done: Bool)
 }
 
 class CurrentUser: NSObject {
@@ -28,6 +29,7 @@ class CurrentUser: NSObject {
     var userJobs:[String]?
     
     var userJobsArray:[Job] = []
+    var arrayOfJobIds:[String] = []
     
     var delegate:ReturnUserJobsDelegate?
     
@@ -147,9 +149,9 @@ class CurrentUser: NSObject {
                     return
                 }
 
-                let arrayOfJobIds = data["jobs"] as? NSArray
-                for jobs in arrayOfJobIds!{
-                    self.loadJobWithId(company: userCompany, id: jobs as! String)
+                self.arrayOfJobIds = data["jobs"] as? NSArray as! [String]
+                for jobs in self.arrayOfJobIds{
+                    self.loadJobWithId(company: userCompany, id: jobs)
                 }
             }
         }
@@ -174,8 +176,15 @@ class CurrentUser: NSObject {
                 newJob.jobCoordinates = locationCLLocation
                 
                 self.userJobsArray.append(newJob)
+
+                if(self.userJobsArray.count == self.arrayOfJobIds.count){
+                    self.delegate?.returnUsersJobs(jobs: self.userJobsArray)
+                    self.delegate?.usersJobsDoneLoading(done: true)
+                }else{
+                    self.delegate?.usersJobsDoneLoading(done: false)
+                }
                 
-                self.delegate?.returnUsersJobs(jobs: self.userJobsArray)
+                //self.delegate?.returnUsersJobs(jobs: self.userJobsArray)
             }
         }
     }

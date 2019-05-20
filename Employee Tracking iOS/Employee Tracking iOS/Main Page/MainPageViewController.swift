@@ -8,67 +8,111 @@
 
 import UIKit
 
-class MainPageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, ReturnUserJobsDelegate {
 
-    @IBOutlet weak var mainCollectionView: UICollectionView!
+    
+    @IBOutlet weak var mainTableView: UITableView!
     
     var employee:CurrentUser?
     
     var cellNames = ["Jobs", "Communication"]
     var cellColors = [Colors.sharedInstance.lightBlue, Colors.sharedInstance.darkGrey]
     
-    
     var locationTracking:GPSTracking?
     
+    var listOfJobs:[Job] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.mainTableView.delegate = self
+        self.mainTableView.dataSource = self
     
         // adding a log off button in the nav bar //
         let logOffButton:UIBarButtonItem = UIBarButtonItem(title: "Log off", style: UIBarButtonItem.Style.plain, target: self, action: #selector(logOffOnClick))
         self.navigationItem.rightBarButtonItem = logOffButton
         
         self.navigationItem.setHidesBackButton(true, animated: true)
-
-        mainCollectionView.delegate = self
-        mainCollectionView.dataSource = self
         
+        
+        CurrentUser.sharedInstance.delegate = self
+        CurrentUser.sharedInstance.loadUserJobIds()
+        
+        // start up the gps tracking //
         locationTracking = GPSTracking()
-        
     }
     
+    
+    
+    // **** this is from the shared instance of the current user **** //
+    func returnUsersJobs(jobs: [Job]) {
+        listOfJobs = jobs
+    }
+    
+    // this gets called when the users jobs have finished loading //
+    func usersJobsDoneLoading(done: Bool) {
+        if(done){
+            // loading the jobs into the gps tracking //
+            locationTracking?.loadUsersjobs(jobs: listOfJobs)
+        }
+    }
+    
+    // **** end of the shared instance of the current user **** //
     
     
     
     @objc func logOffOnClick(){
-        
         CurrentUser.sharedInstance.deleteUser()
+        locationTracking?.endLocationTracking()
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+    
+    
+    
+    
+    // table view stuff //
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "customCell", for: indexPath) as! CustomCollectionCell
-
-        cell.mainCollectionViewLabel.text = cellNames[indexPath.row]
-        cell.backgroundColor = cellColors[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mainTableCell", for: indexPath) as! MainPageTableViewCell
+        cell.mainLabel.text = self.cellNames[indexPath.row]
+        cell.mainLabel.textColor = UIColor.white
+        cell.backgroundColor = self.cellColors[indexPath.row]
         
-        cell.layer.cornerRadius = 5.0
-        
+        cell.layer.cornerRadius = 10.0
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.row == 0){
+            
+            let selectedRow:UITableViewCell = tableView.cellForRow(at: indexPath)!
+            selectedRow.contentView.backgroundColor = Colors.sharedInstance.lightBlue
+            
             let jobView = self.storyboard?.instantiateViewController(withIdentifier: "Jobs") as! ListOfJobsViewController
             self.navigationController?.pushViewController(jobView, animated: true)
         }
     }
+    
+    
+    
+    
+    
+    
 }
+
+
+
+
+/*
+ if(indexPath.row == 0){
+ let jobView = self.storyboard?.instantiateViewController(withIdentifier: "Jobs") as! ListOfJobsViewController
+ self.navigationController?.pushViewController(jobView, animated: true)
+ }
+ 
+ */

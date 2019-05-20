@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 
+
 class GPSTracking: NSObject, CLLocationManagerDelegate {
     
     var distance:Int?
@@ -30,6 +31,12 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         
         locationManager?.startUpdatingLocation()
     }
+    
+    func loadUsersjobs(jobs: [Job]){
+        
+    }
+    
+    
 
     // if the user declines usage //
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -61,12 +68,5 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
             return
         }
         
-        
-        
-        
-        
     }
-    
-    
-
 }

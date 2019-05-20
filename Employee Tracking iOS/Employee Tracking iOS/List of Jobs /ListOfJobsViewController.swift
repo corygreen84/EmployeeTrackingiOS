@@ -33,6 +33,9 @@ class ListOfJobsViewController: UIViewController, UITableViewDelegate, UITableVi
         self.mainList.reloadData()
     }
     
+    func usersJobsDoneLoading(done: Bool) {
+        
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,6 +54,13 @@ class ListOfJobsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailView = self.storyboard?.instantiateViewController(withIdentifier: "Detail") as! DetailViewController
+        detailView.job = self.userJobs[indexPath.row]
+        self.navigationController?.pushViewController(detailView, animated: true)
     }
 
 }

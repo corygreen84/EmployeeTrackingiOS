@@ -1,5 +1,5 @@
 //
-//  JobCellTableViewCell.swift
+//  MainPageTableViewCell.swift
 //  Employee Tracking iOS
 //
 //  Created by Cory Green on 5/20/19.
@@ -8,10 +8,9 @@
 
 import UIKit
 
-class JobCellTableViewCell: UITableViewCell {
+class MainPageTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var mainLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,7 +18,7 @@ class JobCellTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         
     }
 
