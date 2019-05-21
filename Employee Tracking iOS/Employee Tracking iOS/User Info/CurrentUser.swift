@@ -11,8 +11,7 @@ import Firebase
 import CoreLocation
 
 @objc protocol ReturnUserJobsDelegate{
-    func returnUsersJobs(jobs: [Job])
-    func usersJobsDoneLoading(done: Bool)
+    func returnUsersJobs(jobs: [Job], status:Bool)
 }
 
 class CurrentUser: NSObject {
@@ -38,8 +37,7 @@ class CurrentUser: NSObject {
         UserDefaults.standard.set(_userPhoneNumber, forKey: "userPhoneNumber")
         UserDefaults.standard.set(_userStatus, forKey: "userStatus")
         UserDefaults.standard.set(_userJobs, forKey: "userJobs")
-        
-        print("calling change status from save")
+
         self.changeStatusInFirebase(status: true)
     }
  
@@ -82,8 +80,6 @@ class CurrentUser: NSObject {
     }
     
     func deleteUserDefaults(){
-        
-        print("calling change status from delete")
         self.changeStatusInFirebase(status: false)
         
         UserDefaults.standard.removeObject(forKey: "userId")
@@ -129,11 +125,13 @@ class CurrentUser: NSObject {
         
         let db = Firestore.firestore()
         db.collection("companies").document(userCompany).collection("employees").document(userId).addSnapshotListener { (document, error) in
+
             if(error == nil){
                 guard let data = document!.data() else{
                     return
                 }
 
+                self.userJobsArray.removeAll()
                 self.arrayOfJobIds = data["jobs"] as? NSArray as! [String]
                 for jobs in self.arrayOfJobIds{
                     self.loadJobWithId(company: userCompany, id: jobs)
@@ -144,13 +142,12 @@ class CurrentUser: NSObject {
     
     func loadJobWithId(company:String ,id: String){
         let db = Firestore.firestore()
-        self.userJobsArray.removeAll()
+        
         db.collection("companies").document(company).collection("jobs").document(id).addSnapshotListener { (document, error) in
             if(error == nil){
                 guard let data = document?.data() else{
                     return
                 }
-                
                 let locationGeoPoint = data["location"] as! GeoPoint
                 let locationCLLocation = CLLocation(latitude: locationGeoPoint.latitude, longitude: locationGeoPoint.longitude)
                 
@@ -160,13 +157,28 @@ class CurrentUser: NSObject {
                 newJob.jobAddress = (data["address"] as! String)
                 newJob.jobCoordinates = locationCLLocation
                 
-                self.userJobsArray.append(newJob)
-
-                if(self.userJobsArray.count == self.arrayOfJobIds.count){
-                    self.delegate?.returnUsersJobs(jobs: self.userJobsArray)
-                    self.delegate?.usersJobsDoneLoading(done: true)
+                if(self.userJobsArray.count == 0){
+                    self.userJobsArray.append(newJob)
                 }else{
-                    self.delegate?.usersJobsDoneLoading(done: false)
+                    var _exists = false
+                    var _index = 0
+                    for(index, jobs) in self.userJobsArray.enumerated(){
+                        if(jobs.jobID == document!.documentID){
+                            _exists = true
+                            _index = index
+                        }
+                    }
+                    
+                    if(_exists){
+                        self.userJobsArray.remove(at: _index)
+                        self.userJobsArray.append(newJob)
+                    }else{
+                        self.userJobsArray.append(newJob)
+                    }
+                }
+                
+                if(self.userJobsArray.count == self.arrayOfJobIds.count){
+                    self.delegate?.returnUsersJobs(jobs: self.userJobsArray, status: true)
                 }
             }
         }

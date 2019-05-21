@@ -12,8 +12,8 @@ import Firebase
 
 class GPSTracking: NSObject, CLLocationManagerDelegate {
     
-    var distance:Int?
-    var timeInterval = 50
+    var distance:Int = 500
+    var timeInterval = 2
     var locationManager:CLLocationManager?
     
     var timer:Timer?
@@ -21,23 +21,33 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     
     var arrayOfJobs:[Job] = []
     
+    
+    var initialLocation:CLLocation?
+    
     override init() {
         super.init()
         
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager?.distanceFilter = kCLDistanceFilterNone
         locationManager?.allowsBackgroundLocationUpdates = true
         locationManager?.pausesLocationUpdatesAutomatically = false
         locationManager?.requestAlwaysAuthorization()
         
-        locationManager?.startUpdatingLocation()
+        self.startLocationTracking()
+        //self.singleLocationUpdate()
     }
     
     func loadUsersjobs(jobs: [Job]){
         // for each job that comes in, we need to compare it against the users current location //
         // to see if they are in or out of the jobs location //
+        
         arrayOfJobs = jobs
+        
+        for jo in jobs{
+            print(jo.jobName)
+        }
     }
     
     
@@ -47,12 +57,14 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         
     }
     
-    func startLocationTrackingOnce(){
+    
+    
+    func singleLocationUpdate(){
         locationManager?.requestLocation()
     }
-    
-    
+
     func startLocationTracking(){
+        //locationManager?.startMonitoringSignificantLocationChanges()
         locationManager?.startUpdatingLocation()
     }
     
@@ -66,10 +78,41 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let lastLocation = locations.last
         
-        if(lastLocation!.horizontalAccuracy >= 100.0){
-            return
+        let lastLocation:CLLocation = locations.last!
+        if(lastLocation.horizontalAccuracy <= 100){
+            
+            // getting the first location //
+            if(initialLocation == nil){
+                initialLocation = lastLocation
+            }else{
+                
+                var atAJob = false
+                for jobs in arrayOfJobs{
+                    let distanceFromJob = jobs.jobCoordinates?.distance(from: CLLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude))
+                    
+                    
+                    print("distance from \(jobs.jobName) -> \(distanceFromJob)")
+                    
+                    if(Int(distanceFromJob!) <= distance){
+                        atAJob = true
+                    }
+                    
+                }
+                
+                print("at a job? -> \(atAJob)")
+                
+                if(atAJob == false){
+                    let difference = Calendar.current.dateComponents([.minute], from: initialLocation!.timestamp, to: lastLocation.timestamp)
+                    let differenceInMinutes = difference.minute
+
+                    if(differenceInMinutes! >= timeInterval){
+                        initialLocation = lastLocation
+                    
+                        // send info off to server //
+                    }
+                }
+            }
         }
     }
 }

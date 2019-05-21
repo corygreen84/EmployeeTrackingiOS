@@ -28,14 +28,11 @@ class ListOfJobsViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    func returnUsersJobs(jobs: [Job]) {
+    func returnUsersJobs(jobs: [Job], status: Bool) {
         userJobs = jobs
         self.mainList.reloadData()
     }
-    
-    func usersJobsDoneLoading(done: Bool) {
-        
-    }
+
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

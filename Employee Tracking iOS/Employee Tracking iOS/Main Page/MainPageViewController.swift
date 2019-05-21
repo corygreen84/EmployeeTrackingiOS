@@ -48,18 +48,17 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     
     
     // **** this is from the shared instance of the current user **** //
-    func returnUsersJobs(jobs: [Job]) {
-        listOfJobs = jobs
-    }
+
     
-    // this gets called when the users jobs have finished loading //
-    func usersJobsDoneLoading(done: Bool) {
-        if(done){
-            
+    func returnUsersJobs(jobs: [Job], status: Bool) {
+        if(status){
+
+            listOfJobs = jobs
             // loading the jobs into the gps tracking //
             locationTracking?.loadUsersjobs(jobs: listOfJobs)
         }
     }
+
     
     // **** end of the shared instance of the current user **** //
     
