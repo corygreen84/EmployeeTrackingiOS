@@ -64,6 +64,7 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     
     @objc func logOffOnClick(){
         CurrentUser.sharedInstance.deleteUser()
+        
         locationTracking?.endLocationTracking()
         self.navigationController?.popToRootViewController(animated: true)
     }

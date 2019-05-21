@@ -17,54 +17,33 @@ import CoreLocation
 
 class CurrentUser: NSObject {
     static let sharedInstance = CurrentUser()
-    var userID:String?
-    var userCompany:String?
-    
-    var userFirstName:String?
-    var userLastName:String?
-    var userNumber:Int?
-    var userEmail:String?
-    var userPhoneNumber:Int?
-    var userStatus:Bool?
-    var userJobs:[String]?
-    
+
     var userJobsArray:[Job] = []
     var arrayOfJobIds:[String] = []
     
     var delegate:ReturnUserJobsDelegate?
     
     func deleteUser(){
-        
-        self.changeStatusInFirebase(status: false)
-        userID = nil
-        userCompany = nil
-        userFirstName = nil
-        userLastName = nil
-        userNumber = nil
-        userEmail = nil
-        userPhoneNumber = nil
-        userStatus = nil
-        userJobs = nil
-        
         self.deleteUserDefaults()
-
     }
-    
-    func saveUserToDefaults(){
+
+    func saveUserToDefaults(_userId: String, _userCompany: String, _userFirstName: String, _userLastName: String, _userNumber: Int, _userEmail: String, _userPhoneNumber: Int, _userStatus: Bool, _userJobs: [String]){
         
-        UserDefaults.standard.set(userID, forKey: "userId")
-        UserDefaults.standard.set(userCompany, forKey: "userCompany")
-        UserDefaults.standard.set(userFirstName, forKey: "userFirstName")
-        UserDefaults.standard.set(userLastName, forKey: "userLastName")
-        UserDefaults.standard.set(userNumber, forKey: "userNumber")
-        UserDefaults.standard.set(userEmail, forKey: "userEmail")
-        UserDefaults.standard.set(userPhoneNumber, forKey: "userPhoneNumber")
-        UserDefaults.standard.set(userStatus, forKey: "userStatus")
-        UserDefaults.standard.set(userJobs, forKey: "userJobs")
+        UserDefaults.standard.set(_userId, forKey: "userId")
+        UserDefaults.standard.set(_userCompany, forKey: "userCompany")
+        UserDefaults.standard.set(_userFirstName, forKey: "userFirstName")
+        UserDefaults.standard.set(_userLastName, forKey: "userLastName")
+        UserDefaults.standard.set(_userNumber, forKey: "userNumber")
+        UserDefaults.standard.set(_userEmail, forKey: "userEmail")
+        UserDefaults.standard.set(_userPhoneNumber, forKey: "userPhoneNumber")
+        UserDefaults.standard.set(_userStatus, forKey: "userStatus")
+        UserDefaults.standard.set(_userJobs, forKey: "userJobs")
         
+        print("calling change status from save")
         self.changeStatusInFirebase(status: true)
     }
-    
+ 
+ 
     func checkToSeeIfUserExists() -> Bool{
 
         if(UserDefaults.standard.object(forKey: "userId") == nil ||
@@ -104,6 +83,9 @@ class CurrentUser: NSObject {
     
     func deleteUserDefaults(){
         
+        print("calling change status from delete")
+        self.changeStatusInFirebase(status: false)
+        
         UserDefaults.standard.removeObject(forKey: "userId")
         UserDefaults.standard.removeObject(forKey: "userCompany")
         UserDefaults.standard.removeObject(forKey: "userFirstName")
@@ -121,13 +103,16 @@ class CurrentUser: NSObject {
     func changeStatusInFirebase(status:Bool){
         let db = Firestore.firestore()
         
-        if(userID != nil && userCompany != nil){
-            let ref = db.collection("companies").document(userCompany!).collection("employees").document(userID!)
+        let _id = UserDefaults.standard.object(forKey: "userId") as? String
+        let _company = UserDefaults.standard.object(forKey: "userCompany") as? String
+
+        if(_id != nil && _company != nil){
+            let ref = db.collection("companies").document(_company!).collection("employees").document(_id!)
             ref.updateData(["status": status]){err in
                 if err != nil{
                     print("error writting to document")
                 }else{
-                    self.deleteUserDefaults()
+                    
                 }
             }
         }
@@ -183,10 +168,7 @@ class CurrentUser: NSObject {
                 }else{
                     self.delegate?.usersJobsDoneLoading(done: false)
                 }
-                
-                //self.delegate?.returnUsersJobs(jobs: self.userJobsArray)
             }
         }
     }
-    
 }

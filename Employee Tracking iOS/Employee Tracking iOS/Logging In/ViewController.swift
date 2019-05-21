@@ -151,7 +151,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                     // making sure the email and employee number line up //
                     if(documentData["email"] as? String == self.emailTextField.text &&
                         documentData["employeeNumber"] as? Int == empTextField){
-                        
+                        /*
                         CurrentUser.sharedInstance.userID = document["id"] as? String
                         CurrentUser.sharedInstance.userCompany = self.companyTextField.text!
                         CurrentUser.sharedInstance.userFirstName = document["first"] as? String
@@ -163,6 +163,19 @@ class ViewController: UIViewController, UITextFieldDelegate{
                         CurrentUser.sharedInstance.userJobs = document["jobs"] as? [String]
                         
                         CurrentUser.sharedInstance.saveUserToDefaults()
+                        */
+                        
+                        let  _userId = document["id"] as? String
+                        let _userCompany = self.companyTextField.text!
+                        let _userFirstName = document["first"] as? String
+                        let _userLastName = document["last"] as? String
+                        let _userEmail = document["email"] as? String
+                        let _userStatus = document["status"] as? Bool
+                        let _userPhoneNumber = document["phoneNumber"] as? Int
+                        let _userNumber = document["employeeNumber"] as? Int
+                        let _userjobs = document["jobs"] as? [String]
+                        
+                        CurrentUser.sharedInstance.saveUserToDefaults(_userId: _userId!, _userCompany: _userCompany, _userFirstName: _userFirstName!, _userLastName: _userLastName!, _userNumber: _userNumber!, _userEmail: _userEmail!, _userPhoneNumber: _userPhoneNumber!, _userStatus: _userStatus!, _userJobs: _userjobs!)
                         
                         // passing the data to the next view //
                         let mainPage = self.storyboard?.instantiateViewController(withIdentifier: "Main") as! MainPageViewController
