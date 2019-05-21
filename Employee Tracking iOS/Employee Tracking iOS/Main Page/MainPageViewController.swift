@@ -52,6 +52,7 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     // this gets called when the users jobs have finished loading //
     func usersJobsDoneLoading(done: Bool) {
         if(done){
+            
             // loading the jobs into the gps tracking //
             locationTracking?.loadUsersjobs(jobs: listOfJobs)
         }
@@ -98,21 +99,4 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
             self.navigationController?.pushViewController(jobView, animated: true)
         }
     }
-    
-    
-    
-    
-    
-    
 }
-
-
-
-
-/*
- if(indexPath.row == 0){
- let jobView = self.storyboard?.instantiateViewController(withIdentifier: "Jobs") as! ListOfJobsViewController
- self.navigationController?.pushViewController(jobView, animated: true)
- }
- 
- */

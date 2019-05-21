@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Firebase
 
 
 class GPSTracking: NSObject, CLLocationManagerDelegate {
@@ -18,6 +19,8 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     
     var timer:Timer?
     var counter = 0
+    
+    var arrayOfJobs:[Job] = []
     
     override init() {
         super.init()
@@ -33,7 +36,9 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     }
     
     func loadUsersjobs(jobs: [Job]){
-        
+        // for each job that comes in, we need to compare it against the users current location //
+        // to see if they are in or out of the jobs location //
+        arrayOfJobs = jobs
     }
     
     
