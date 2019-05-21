@@ -24,8 +24,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         // right away we should check to see if there is any data saved for the user //
         if(CurrentUser.sharedInstance.checkToSeeIfUserExists()){
             let mainPage = self.storyboard?.instantiateViewController(withIdentifier: "Main") as! MainPageViewController
@@ -151,20 +149,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                     // making sure the email and employee number line up //
                     if(documentData["email"] as? String == self.emailTextField.text &&
                         documentData["employeeNumber"] as? Int == empTextField){
-                        /*
-                        CurrentUser.sharedInstance.userID = document["id"] as? String
-                        CurrentUser.sharedInstance.userCompany = self.companyTextField.text!
-                        CurrentUser.sharedInstance.userFirstName = document["first"] as? String
-                        CurrentUser.sharedInstance.userLastName = document["last"] as? String
-                        CurrentUser.sharedInstance.userEmail = document["email"] as? String
-                        CurrentUser.sharedInstance.userStatus = document["status"] as? Bool
-                        CurrentUser.sharedInstance.userPhoneNumber = document["phoneNumber"] as? Int
-                        CurrentUser.sharedInstance.userNumber = document["employeeNumber"] as? Int
-                        CurrentUser.sharedInstance.userJobs = document["jobs"] as? [String]
-                        
-                        CurrentUser.sharedInstance.saveUserToDefaults()
-                        */
-                        
+
                         let  _userId = document["id"] as? String
                         let _userCompany = self.companyTextField.text!
                         let _userFirstName = document["first"] as? String
