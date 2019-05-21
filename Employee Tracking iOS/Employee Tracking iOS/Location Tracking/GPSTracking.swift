@@ -10,7 +10,6 @@ import UIKit
 import CoreLocation
 import Firebase
 
-
 class GPSTracking: NSObject, CLLocationManagerDelegate {
     
     var distance:Int?
@@ -72,6 +71,5 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         if(lastLocation!.horizontalAccuracy >= 100.0){
             return
         }
-        
     }
 }

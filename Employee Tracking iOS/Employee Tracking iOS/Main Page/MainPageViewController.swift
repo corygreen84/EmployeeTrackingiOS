@@ -35,6 +35,9 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         
+        
+        
+        // loading the users jobs //
         CurrentUser.sharedInstance.delegate = self
         CurrentUser.sharedInstance.loadUserJobIds()
         
