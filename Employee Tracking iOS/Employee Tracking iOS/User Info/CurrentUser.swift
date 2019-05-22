@@ -104,11 +104,21 @@ class CurrentUser: NSObject {
 
         if(_id != nil && _company != nil){
             let ref = db.collection("companies").document(_company!).collection("employees").document(_id!)
-            ref.updateData(["status": status]){err in
-                if err != nil{
-                    print("error writting to document")
-                }else{
+            if(status){
+                ref.updateData(["status": status]){err in
+                    if err != nil{
+                        print("error writting to document")
+                    }else{
                     
+                    }
+                }
+            }else{
+                ref.updateData(["status": status, "jobsCurrentlyAt": ""]){err in
+                    if err != nil{
+                        print("error writting to document")
+                    }else{
+                        
+                    }
                 }
             }
         }

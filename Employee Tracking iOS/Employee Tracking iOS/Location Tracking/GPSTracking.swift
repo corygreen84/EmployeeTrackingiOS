@@ -12,7 +12,7 @@ import Firebase
 
 class GPSTracking: NSObject, CLLocationManagerDelegate {
     
-    var distance:Int = 500
+    var radius:Int = 500
     var timeIntervalOffSite = 2
     var timeIntervalOnSite = 1
     var locationManager:CLLocationManager?
@@ -30,7 +30,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         
         locationManager = CLLocationManager()
         locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager?.distanceFilter = kCLDistanceFilterNone
         locationManager?.allowsBackgroundLocationUpdates = true
         locationManager?.pausesLocationUpdatesAutomatically = false
@@ -44,7 +44,6 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         // for each job that comes in, we need to compare it against the users current location //
         // to see if they are in or out of the jobs location //
         arrayOfJobs = jobs
-
     }
     
     
@@ -75,7 +74,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+
         let lastLocation:CLLocation = locations.last!
         if(lastLocation.horizontalAccuracy <= 200){
             
@@ -88,23 +87,21 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                 for jobs in arrayOfJobs{
                     let distanceFromJob = jobs.jobCoordinates?.distance(from: CLLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude))
                     
-                    if(Int(distanceFromJob!) <= distance){
+                    if(Int(distanceFromJob!) <= radius  ){
                         atAJob = true
-                        
                         let difference = Calendar.current.dateComponents([.minute], from: initialLocation!.timestamp, to: lastLocation.timestamp)
                         let differenceInMinutes = difference.minute
                         
-                        if(differenceInMinutes! >= timeIntervalOnSite){
+                        //if(differenceInMinutes! >= timeIntervalOnSite){
                             initialLocation = lastLocation
                             
                             // here I need to send the info to the server that the user has entered a job site or is still at //
                             // a job site //
                             self.sendInfoToServerAtJob(jobId: jobs.jobID!, jobName: jobs.jobName!, isAtJob: atAJob)
-                        }
+                        //}
                     }else{
                         atAJob = false
                     }
-                    
                 }
 
                 // for when the user is not at any job //
@@ -112,25 +109,34 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                     let difference = Calendar.current.dateComponents([.minute], from: initialLocation!.timestamp, to: lastLocation.timestamp)
                     let differenceInMinutes = difference.minute
 
-                    if(differenceInMinutes! >= timeIntervalOffSite){
+                    //if(differenceInMinutes! >= timeIntervalOffSite){
                         initialLocation = lastLocation
                     
                         // send info off to server //
                         self.sendInfoToServerOffJob()
-                    }
+                    //}
                 }
             }
         }
     }
     
     func sendInfoToServerAtJob(jobId:String, jobName:String, isAtJob: Bool){
-        print("job -> \(jobId) and job Name -> \(jobName) is at the job \(isAtJob)" )
-        var userId = UserDefaults.standard.object(forKey: "userId") as! String
+        print("at job")
+        let userId = UserDefaults.standard.object(forKey: "userId") as! String
+        let userCompany = UserDefaults.standard.object(forKey: "userCompany") as! String
         
+        let db = Firestore.firestore()
+        let ref = db.collection("companies").document(userCompany).collection("employees").document(userId);
+        ref.updateData(["jobsCurrentlyAt": jobName])
     }
     
     func sendInfoToServerOffJob(){
-        print("is not at the job")
-        var userId = UserDefaults.standard.object(forKey: "userId") as! String
+        print("not at job")
+        let userId = UserDefaults.standard.object(forKey: "userId") as! String
+        let userCompany = UserDefaults.standard.object(forKey: "userCompany") as! String
+        
+        let db = Firestore.firestore()
+        let ref = db.collection("companies").document(userCompany).collection("employees").document(userId);
+        ref.updateData(["jobsCurrentlyAt": ""])
     }
 }
