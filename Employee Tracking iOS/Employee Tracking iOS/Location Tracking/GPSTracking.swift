@@ -80,28 +80,30 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let lastLocation:CLLocation = locations.last!
-        if(lastLocation.horizontalAccuracy <= 100){
+        if(lastLocation.horizontalAccuracy <= 200){
             
             // getting the first location //
             if(initialLocation == nil){
                 initialLocation = lastLocation
             }else{
-                
+
                 var atAJob = false
                 for jobs in arrayOfJobs{
                     let distanceFromJob = jobs.jobCoordinates?.distance(from: CLLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude))
                     
-                    
-                    print("distance from \(jobs.jobName) -> \(distanceFromJob)")
-                    
                     if(Int(distanceFromJob!) <= distance){
                         atAJob = true
+                        
+                        // here I need to send the info to the server that the user has entered a job site or is still at //
+                        // a job site //
+                        self.sendInfoToServerAtJob(jobId: jobs.jobID!, jobName: jobs.jobName!, isAtJob: atAJob)
+                    }else{
+                        atAJob = false
                     }
                     
                 }
-                
-                print("at a job? -> \(atAJob)")
-                
+
+                // for when the user is not at any job //
                 if(atAJob == false){
                     let difference = Calendar.current.dateComponents([.minute], from: initialLocation!.timestamp, to: lastLocation.timestamp)
                     let differenceInMinutes = difference.minute
@@ -110,9 +112,21 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                         initialLocation = lastLocation
                     
                         // send info off to server //
+                        self.sendInfoToServerOffJob()
                     }
                 }
             }
         }
+    }
+    
+    func sendInfoToServerAtJob(jobId:String, jobName:String, isAtJob: Bool){
+        print("job -> \(jobId) and job Name -> \(jobName) is at the job \(isAtJob)" )
+        var userId = UserDefaults.standard.object(forKey: "userId") as! String
+        
+    }
+    
+    func sendInfoToServerOffJob(){
+        print("is not at the job")
+        var userId = UserDefaults.standard.object(forKey: "userId") as! String
     }
 }

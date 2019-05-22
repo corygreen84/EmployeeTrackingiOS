@@ -48,8 +48,6 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     
     
     // **** this is from the shared instance of the current user **** //
-
-    
     func returnUsersJobs(jobs: [Job], status: Bool) {
         if(status){
 

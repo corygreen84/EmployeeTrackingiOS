@@ -123,16 +123,18 @@ class CurrentUser: NSObject {
         let userId = userInfo.0
         let userCompany = userInfo.1
         
+        print(userId)
+        
         let db = Firestore.firestore()
         db.collection("companies").document(userCompany).collection("employees").document(userId).addSnapshotListener { (document, error) in
-
+            
             if(error == nil){
                 guard let data = document!.data() else{
                     return
                 }
-
                 self.userJobsArray.removeAll()
                 self.arrayOfJobIds = data["jobs"] as? NSArray as! [String]
+                
                 for jobs in self.arrayOfJobIds{
                     self.loadJobWithId(company: userCompany, id: jobs)
                 }
@@ -140,10 +142,12 @@ class CurrentUser: NSObject {
         }
     }
     
-    func loadJobWithId(company:String ,id: String){
+    func loadJobWithId(company:String ,id:String){
         let db = Firestore.firestore()
         
         db.collection("companies").document(company).collection("jobs").document(id).addSnapshotListener { (document, error) in
+            
+
             if(error == nil){
                 guard let data = document?.data() else{
                     return
@@ -176,7 +180,7 @@ class CurrentUser: NSObject {
                         self.userJobsArray.append(newJob)
                     }
                 }
-                
+
                 if(self.userJobsArray.count == self.arrayOfJobIds.count){
                     self.delegate?.returnUsersJobs(jobs: self.userJobsArray, status: true)
                 }
