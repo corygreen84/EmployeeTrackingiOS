@@ -13,7 +13,8 @@ import Firebase
 class GPSTracking: NSObject, CLLocationManagerDelegate {
     
     var distance:Int = 500
-    var timeInterval = 2
+    var timeIntervalOffSite = 2
+    var timeIntervalOnSite = 1
     var locationManager:CLLocationManager?
     
     var timer:Timer?
@@ -42,12 +43,8 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     func loadUsersjobs(jobs: [Job]){
         // for each job that comes in, we need to compare it against the users current location //
         // to see if they are in or out of the jobs location //
-        
         arrayOfJobs = jobs
-        
-        for jo in jobs{
-            print(jo.jobName)
-        }
+
     }
     
     
@@ -94,9 +91,16 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                     if(Int(distanceFromJob!) <= distance){
                         atAJob = true
                         
-                        // here I need to send the info to the server that the user has entered a job site or is still at //
-                        // a job site //
-                        self.sendInfoToServerAtJob(jobId: jobs.jobID!, jobName: jobs.jobName!, isAtJob: atAJob)
+                        let difference = Calendar.current.dateComponents([.minute], from: initialLocation!.timestamp, to: lastLocation.timestamp)
+                        let differenceInMinutes = difference.minute
+                        
+                        if(differenceInMinutes! >= timeIntervalOnSite){
+                            initialLocation = lastLocation
+                            
+                            // here I need to send the info to the server that the user has entered a job site or is still at //
+                            // a job site //
+                            self.sendInfoToServerAtJob(jobId: jobs.jobID!, jobName: jobs.jobName!, isAtJob: atAJob)
+                        }
                     }else{
                         atAJob = false
                     }
@@ -108,7 +112,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                     let difference = Calendar.current.dateComponents([.minute], from: initialLocation!.timestamp, to: lastLocation.timestamp)
                     let differenceInMinutes = difference.minute
 
-                    if(differenceInMinutes! >= timeInterval){
+                    if(differenceInMinutes! >= timeIntervalOffSite){
                         initialLocation = lastLocation
                     
                         // send info off to server //
