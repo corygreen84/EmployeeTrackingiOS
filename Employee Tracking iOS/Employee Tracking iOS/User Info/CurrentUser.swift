@@ -156,7 +156,6 @@ class CurrentUser: NSObject {
         let db = Firestore.firestore()
         
         db.collection("companies").document(company).collection("jobs").document(id).addSnapshotListener { (document, error) in
-            
 
             if(error == nil){
                 guard let data = document?.data() else{

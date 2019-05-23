@@ -31,7 +31,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager?.distanceFilter = kCLDistanceFilterNone
+        locationManager?.distanceFilter = 20.0 
         locationManager?.allowsBackgroundLocationUpdates = true
         locationManager?.pausesLocationUpdatesAutomatically = false
         locationManager?.requestAlwaysAuthorization()
@@ -60,6 +60,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     }
 
     func startLocationTracking(){
+        self.singleLocationUpdate()
         //locationManager?.startMonitoringSignificantLocationChanges()
         locationManager?.startUpdatingLocation()
     }
@@ -76,7 +77,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
         let lastLocation:CLLocation = locations.last!
-        if(lastLocation.horizontalAccuracy <= 200){
+        //if(lastLocation.horizontalAccuracy <= 200){
             
             // getting the first location //
             if(initialLocation == nil){
@@ -117,7 +118,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                     //}
                 }
             }
-        }
+        //}
     }
     
     func sendInfoToServerAtJob(jobId:String, jobName:String, isAtJob: Bool){
@@ -125,9 +126,11 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         let userId = UserDefaults.standard.object(forKey: "userId") as! String
         let userCompany = UserDefaults.standard.object(forKey: "userCompany") as! String
         
+        /*
         let db = Firestore.firestore()
         let ref = db.collection("companies").document(userCompany).collection("employees").document(userId);
         ref.updateData(["jobsCurrentlyAt": jobName])
+        */
     }
     
     func sendInfoToServerOffJob(){
@@ -135,8 +138,10 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         let userId = UserDefaults.standard.object(forKey: "userId") as! String
         let userCompany = UserDefaults.standard.object(forKey: "userCompany") as! String
         
+        /*
         let db = Firestore.firestore()
         let ref = db.collection("companies").document(userCompany).collection("employees").document(userId);
         ref.updateData(["jobsCurrentlyAt": ""])
+        */
     }
 }
