@@ -48,14 +48,12 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         
         locationManager = CLLocationManager()
         locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager?.distanceFilter = 20.0 
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager?.allowsBackgroundLocationUpdates = true
         locationManager?.pausesLocationUpdatesAutomatically = false
         locationManager?.requestAlwaysAuthorization()
         
         self.startLocationTracking()
-        //self.singleLocationUpdate()
     }
     
     func loadUsersjobs(jobs: [Job]){

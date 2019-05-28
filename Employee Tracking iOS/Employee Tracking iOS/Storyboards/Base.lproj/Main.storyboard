@@ -97,10 +97,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-1" translatesAutoresizingMaskIntoConstraints="NO" id="Pkx-zM-pjZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1280" height="896"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3sz-bF-GH2">
-                                <rect key="frame" x="20" y="197" width="374" height="538"/>
+                                <rect key="frame" x="20" y="197" width="374" height="665"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mainTableCell" rowHeight="150" id="arW-tV-gSL" customClass="MainPageTableViewCell" customModule="Employee_Tracking_iOS" customModuleProvider="target">
@@ -130,32 +130,21 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAr-t8-txC">
-                                <rect key="frame" x="20" y="766" width="374" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bAr-t8-txC" firstAttribute="top" secondItem="3sz-bF-GH2" secondAttribute="bottom" constant="31" id="7do-v1-1Fv"/>
-                            <constraint firstItem="bAr-t8-txC" firstAttribute="trailing" secondItem="3sz-bF-GH2" secondAttribute="trailing" id="Cby-SH-KOW"/>
+                            <constraint firstItem="3sz-bF-GH2" firstAttribute="bottom" secondItem="7r6-uW-yT9" secondAttribute="bottom" id="7sJ-Io-O2Q"/>
                             <constraint firstItem="Pkx-zM-pjZ" firstAttribute="leading" secondItem="Nu9-We-BKc" secondAttribute="leading" id="IZ7-HS-1w6"/>
-                            <constraint firstItem="7r6-uW-yT9" firstAttribute="bottom" secondItem="bAr-t8-txC" secondAttribute="bottom" constant="48" id="Irl-vl-bJ7"/>
-                            <constraint firstItem="3sz-bF-GH2" firstAttribute="leading" secondItem="Nu9-We-BKc" secondAttribute="leadingMargin" id="Lue-pW-Jwd"/>
+                            <constraint firstItem="3sz-bF-GH2" firstAttribute="top" secondItem="7r6-uW-yT9" secondAttribute="top" constant="109" id="KhC-sh-vRN"/>
                             <constraint firstAttribute="bottom" secondItem="Pkx-zM-pjZ" secondAttribute="bottom" id="Ocb-Sw-bGs"/>
-                            <constraint firstItem="3sz-bF-GH2" firstAttribute="top" secondItem="7r6-uW-yT9" secondAttribute="top" constant="109" id="T9n-md-j89"/>
-                            <constraint firstItem="3sz-bF-GH2" firstAttribute="trailing" secondItem="Nu9-We-BKc" secondAttribute="trailingMargin" id="bRj-Ir-Idb"/>
                             <constraint firstItem="Pkx-zM-pjZ" firstAttribute="top" secondItem="Nu9-We-BKc" secondAttribute="top" id="c5d-NJ-Dxl"/>
-                            <constraint firstItem="bAr-t8-txC" firstAttribute="centerX" secondItem="Pkx-zM-pjZ" secondAttribute="centerX" id="hpw-K0-5Cp"/>
-                            <constraint firstItem="bAr-t8-txC" firstAttribute="leading" secondItem="3sz-bF-GH2" secondAttribute="leading" id="ll7-JV-zxB"/>
+                            <constraint firstItem="3sz-bF-GH2" firstAttribute="leading" secondItem="Nu9-We-BKc" secondAttribute="leadingMargin" id="upk-3a-jet"/>
+                            <constraint firstItem="3sz-bF-GH2" firstAttribute="trailing" secondItem="Nu9-We-BKc" secondAttribute="trailingMargin" id="zji-St-GfC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7r6-uW-yT9"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="locationLabel" destination="bAr-t8-txC" id="N1I-mp-v4j"/>
                         <outlet property="mainTableView" destination="3sz-bF-GH2" id="82N-e5-Q4O"/>
                     </connections>
                 </viewController>

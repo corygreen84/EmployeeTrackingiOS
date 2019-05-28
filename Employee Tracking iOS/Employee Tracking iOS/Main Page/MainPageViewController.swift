@@ -13,7 +13,6 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
 
     
     @IBOutlet weak var mainTableView: UITableView!
-    @IBOutlet weak var locationLabel: UILabel!
     
     var employee:CurrentUser?
     
@@ -49,7 +48,6 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     }
     
     func returnlocation(location: CLLocation) {
-        locationLabel.text = "\(location.speed)"
     }
     
     
