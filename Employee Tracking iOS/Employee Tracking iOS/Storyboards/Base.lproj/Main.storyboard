@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-1" translatesAutoresizingMaskIntoConstraints="NO" id="pKi-Ns-0vT">
-                                <rect key="frame" x="0.0" y="0.0" width="16" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1280" height="896"/>
                             </imageView>
                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Employee Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ATK-ov-kOw">
                                 <rect key="frame" x="87" y="503" width="240" height="30"/>
@@ -100,7 +100,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3sz-bF-GH2">
-                                <rect key="frame" x="20" y="197" width="374" height="657"/>
+                                <rect key="frame" x="20" y="197" width="374" height="538"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mainTableCell" rowHeight="150" id="arW-tV-gSL" customClass="MainPageTableViewCell" customModule="Employee_Tracking_iOS" customModuleProvider="target">
@@ -111,17 +111,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyi-UW-uLe">
-                                                    <rect key="frame" x="20" y="52" width="334" height="45"/>
+                                                    <rect key="frame" x="20" y="11" width="334" height="128"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="eyi-UW-uLe" firstAttribute="leading" secondItem="meW-rv-LQ8" secondAttribute="leadingMargin" id="7UB-me-UFL"/>
-                                                <constraint firstItem="eyi-UW-uLe" firstAttribute="top" secondItem="meW-rv-LQ8" secondAttribute="topMargin" constant="41" id="AYK-ra-Yje"/>
-                                                <constraint firstItem="eyi-UW-uLe" firstAttribute="trailing" secondItem="meW-rv-LQ8" secondAttribute="trailingMargin" id="NbE-zg-1WB"/>
-                                                <constraint firstItem="eyi-UW-uLe" firstAttribute="centerY" secondItem="meW-rv-LQ8" secondAttribute="centerY" id="kkB-g0-cGO"/>
+                                                <constraint firstItem="eyi-UW-uLe" firstAttribute="trailing" secondItem="meW-rv-LQ8" secondAttribute="trailingMargin" id="0K0-Fh-Ns3"/>
+                                                <constraint firstItem="eyi-UW-uLe" firstAttribute="leading" secondItem="meW-rv-LQ8" secondAttribute="leadingMargin" id="Htk-dz-f34"/>
+                                                <constraint firstItem="eyi-UW-uLe" firstAttribute="centerY" secondItem="meW-rv-LQ8" secondAttribute="centerY" id="Yjr-WW-bjB"/>
+                                                <constraint firstItem="eyi-UW-uLe" firstAttribute="bottom" secondItem="meW-rv-LQ8" secondAttribute="bottomMargin" id="ykl-pR-Eow"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -130,22 +130,32 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAr-t8-txC">
+                                <rect key="frame" x="20" y="766" width="374" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Pkx-zM-pjZ" secondAttribute="trailing" id="4If-Mm-J5H"/>
-                            <constraint firstItem="3sz-bF-GH2" firstAttribute="top" secondItem="7r6-uW-yT9" secondAttribute="top" constant="109" id="C3W-cM-Bgz"/>
-                            <constraint firstItem="Pkx-zM-pjZ" firstAttribute="leading" secondItem="Nu9-We-BKc" secondAttribute="leading" id="EOC-RA-lb1"/>
-                            <constraint firstItem="Pkx-zM-pjZ" firstAttribute="top" secondItem="Nu9-We-BKc" secondAttribute="top" id="NsY-uI-l0m"/>
-                            <constraint firstItem="7r6-uW-yT9" firstAttribute="bottom" secondItem="3sz-bF-GH2" secondAttribute="bottom" constant="8" id="SDF-U1-Z8V"/>
-                            <constraint firstAttribute="bottom" secondItem="Pkx-zM-pjZ" secondAttribute="bottom" id="oIj-NU-I0e"/>
-                            <constraint firstItem="3sz-bF-GH2" firstAttribute="leading" secondItem="Nu9-We-BKc" secondAttribute="leadingMargin" id="rCt-qT-Prn"/>
-                            <constraint firstItem="3sz-bF-GH2" firstAttribute="centerX" secondItem="Pkx-zM-pjZ" secondAttribute="centerX" id="sSI-dE-o5k"/>
+                            <constraint firstItem="bAr-t8-txC" firstAttribute="top" secondItem="3sz-bF-GH2" secondAttribute="bottom" constant="31" id="7do-v1-1Fv"/>
+                            <constraint firstItem="bAr-t8-txC" firstAttribute="trailing" secondItem="3sz-bF-GH2" secondAttribute="trailing" id="Cby-SH-KOW"/>
+                            <constraint firstItem="Pkx-zM-pjZ" firstAttribute="leading" secondItem="Nu9-We-BKc" secondAttribute="leading" id="IZ7-HS-1w6"/>
+                            <constraint firstItem="7r6-uW-yT9" firstAttribute="bottom" secondItem="bAr-t8-txC" secondAttribute="bottom" constant="48" id="Irl-vl-bJ7"/>
+                            <constraint firstItem="3sz-bF-GH2" firstAttribute="leading" secondItem="Nu9-We-BKc" secondAttribute="leadingMargin" id="Lue-pW-Jwd"/>
+                            <constraint firstAttribute="bottom" secondItem="Pkx-zM-pjZ" secondAttribute="bottom" id="Ocb-Sw-bGs"/>
+                            <constraint firstItem="3sz-bF-GH2" firstAttribute="top" secondItem="7r6-uW-yT9" secondAttribute="top" constant="109" id="T9n-md-j89"/>
+                            <constraint firstItem="3sz-bF-GH2" firstAttribute="trailing" secondItem="Nu9-We-BKc" secondAttribute="trailingMargin" id="bRj-Ir-Idb"/>
+                            <constraint firstItem="Pkx-zM-pjZ" firstAttribute="top" secondItem="Nu9-We-BKc" secondAttribute="top" id="c5d-NJ-Dxl"/>
+                            <constraint firstItem="bAr-t8-txC" firstAttribute="centerX" secondItem="Pkx-zM-pjZ" secondAttribute="centerX" id="hpw-K0-5Cp"/>
+                            <constraint firstItem="bAr-t8-txC" firstAttribute="leading" secondItem="3sz-bF-GH2" secondAttribute="leading" id="ll7-JV-zxB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7r6-uW-yT9"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="locationLabel" destination="bAr-t8-txC" id="N1I-mp-v4j"/>
                         <outlet property="mainTableView" destination="3sz-bF-GH2" id="82N-e5-Q4O"/>
                     </connections>
                 </viewController>

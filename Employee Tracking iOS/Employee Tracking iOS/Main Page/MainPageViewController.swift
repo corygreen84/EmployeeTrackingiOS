@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
-class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, ReturnUserJobsDelegate {
+class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, ReturnUserJobsDelegate, ReturnLocationData {
 
     
     @IBOutlet weak var mainTableView: UITableView!
+    @IBOutlet weak var locationLabel: UILabel!
     
     var employee:CurrentUser?
     
@@ -43,6 +45,11 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
         
         // start up the gps tracking //
         locationTracking = GPSTracking()
+        locationTracking?.delegate = self
+    }
+    
+    func returnlocation(location: CLLocation) {
+        locationLabel.text = "\(location.speed)"
     }
     
     

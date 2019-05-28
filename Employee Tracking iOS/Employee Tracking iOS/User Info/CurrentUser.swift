@@ -22,6 +22,9 @@ class CurrentUser: NSObject {
     
     var delegate:ReturnUserJobsDelegate?
     
+    var dayMonthYear:DateFormatter?
+    var hourMinute:DateFormatter?
+    
     func deleteUser(){
         self.deleteUserDefaults()
     }
@@ -101,11 +104,30 @@ class CurrentUser: NSObject {
         
         let _id = UserDefaults.standard.object(forKey: "userId") as? String
         let _company = UserDefaults.standard.object(forKey: "userCompany") as? String
+        
+        dayMonthYear = DateFormatter()
+        dayMonthYear?.dateFormat = "MM-dd-yyyy"
+        
+        hourMinute = DateFormatter()
+        hourMinute?.dateFormat = "HH:mm"
+        
+        
+        let date = Date()
+        let dayMonthYearString:String = ((dayMonthYear?.string(from: date))!)
+        
+        let hourMinuteString:String = ((hourMinute?.string(from: date))!)
+        
+        
 
         if(_id != nil && _company != nil){
             let ref = db.collection("companies").document(_company!).collection("employees").document(_id!)
             if(status){
-                ref.updateData(["status": status]){err in
+                
+                // need to create a log on event for the users employee report //
+                let objectToServer = ["date": dayMonthYearString, "time": hourMinuteString, "jobName": "Logged In", "jobAddress": "", "jobId":"Offsite"]
+                
+                
+                ref.updateData(["status": status, "jobHistory": FieldValue.arrayUnion([objectToServer])]){err in
                     if err != nil{
                         print("error writting to document")
                     }else{
@@ -113,7 +135,11 @@ class CurrentUser: NSObject {
                     }
                 }
             }else{
-                ref.updateData(["status": status, "jobsCurrentlyAt": ""]){err in
+                
+                // need to create a logg off event for the users employee report //
+                let objectToServer = ["date": dayMonthYearString, "time": hourMinuteString, "jobName": "Logged Off", "jobAddress": "", "jobId":"Offsite"]
+                
+                ref.updateData(["status": status, "jobsCurrentlyAt": "", "jobHistory": FieldValue.arrayUnion([objectToServer])]){err in
                     if err != nil{
                         print("error writting to document")
                     }else{
@@ -132,9 +158,7 @@ class CurrentUser: NSObject {
         
         let userId = userInfo.0
         let userCompany = userInfo.1
-        
-        print(userId)
-        
+
         let db = Firestore.firestore()
         db.collection("companies").document(userCompany).collection("employees").document(userId).addSnapshotListener { (document, error) in
             
@@ -144,6 +168,11 @@ class CurrentUser: NSObject {
                 }
                 self.userJobsArray.removeAll()
                 self.arrayOfJobIds = data["jobs"] as? NSArray as! [String]
+                
+                if(self.arrayOfJobIds.count == 0){
+                    // if there are no jobs, we still need to know about it //
+                    self.delegate?.returnUsersJobs(jobs: self.userJobsArray, status: true)
+                }
                 
                 for jobs in self.arrayOfJobIds{
                     self.loadJobWithId(company: userCompany, id: jobs)
