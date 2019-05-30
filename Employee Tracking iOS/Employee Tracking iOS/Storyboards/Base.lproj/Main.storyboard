@@ -97,7 +97,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-1" translatesAutoresizingMaskIntoConstraints="NO" id="Pkx-zM-pjZ">
-                                <rect key="frame" x="0.0" y="0.0" width="16" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1280" height="896"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3sz-bF-GH2">
                                 <rect key="frame" x="20" y="197" width="374" height="665"/>
@@ -200,6 +200,15 @@
                                             <outlet property="addressLabel" destination="Ohe-mK-dos" id="Qf2-kW-jmF"/>
                                             <outlet property="titleLabel" destination="MZQ-h7-zjt" id="WgS-Rd-eqD"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="clear" rowHeight="20" id="0tM-aJ-UTx" customClass="ClearTableViewCell" customModule="Employee_Tracking_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="108" width="374" height="20"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0tM-aJ-UTx" id="RW2-ZV-5UF">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="20"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

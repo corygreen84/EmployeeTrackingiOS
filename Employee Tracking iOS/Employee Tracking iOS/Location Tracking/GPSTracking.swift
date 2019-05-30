@@ -16,7 +16,7 @@ import Firebase
 
 class GPSTracking: NSObject, CLLocationManagerDelegate {
     
-    var radius:Int = 400
+    var radius:Int = 50
     var timeIntervalOffSite = 1
     var timeIntervalOnSite = 1
     var locationManager:CLLocationManager?
@@ -59,7 +59,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         locationManager?.allowsBackgroundLocationUpdates = true
         locationManager?.pausesLocationUpdatesAutomatically = false
         locationManager?.requestAlwaysAuthorization()
-        
+
         self.startLocationTracking()
     }
     
@@ -72,7 +72,6 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         // then, if there are jobs, turn it back on //
         if(arrayOfJobs.count != 0){
             if(locationTrackingToggle == false){
-                print("\nim in here....\n")
                 startLocationTracking()
             }
         }else{
@@ -154,6 +153,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                     if(jobName != "Offsite"){
                         self.sendInfoToServerOffJob()
                         jobName = "Offsite"
+                        
                     }
                 }
             }

@@ -15,6 +15,7 @@
 		E5B9D0D5228A1A5500D0026E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D4228A1A5500D0026E /* Assets.xcassets */; };
 		E5B9D0D8228A1A5500D0026E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D6228A1A5500D0026E /* LaunchScreen.storyboard */; };
 		E5B9D0E0228A1E1A00D0026E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0DF228A1E1A00D0026E /* GoogleService-Info.plist */; };
+		E5C2804F22A0755C00FF0F24 /* ClearTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C2804E22A0755C00FF0F24 /* ClearTableViewCell.swift */; };
 		E5C3BC23228DE1DA00DC70BB /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC22228DE1DA00DC70BB /* MainPageViewController.swift */; };
 		E5C3BC28228DEA0300DC70BB /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */; };
 		E5D45A97228B65C700EDC565 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D45A96228B65C700EDC565 /* Colors.swift */; };
@@ -39,6 +40,7 @@
 		E5B9D0D7228A1A5500D0026E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5B9D0D9228A1A5500D0026E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5B9D0DF228A1E1A00D0026E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E5C2804E22A0755C00FF0F24 /* ClearTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearTableViewCell.swift; sourceTree = "<group>"; };
 		E5C3BC22228DE1DA00DC70BB /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E5D45A96228B65C700EDC565 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			children = (
 				E5E1E764229329E3000C36DA /* ListOfJobsViewController.swift */,
 				E5E1E76722932AC1000C36DA /* JobCellTableViewCell.swift */,
+				E5C2804E22A0755C00FF0F24 /* ClearTableViewCell.swift */,
 				E5E1E76922933112000C36DA /* Job.swift */,
 				E52697CE2293489900144BCB /* Details */,
 			);
@@ -347,6 +350,7 @@
 				E5E1E76122931138000C36DA /* GPSTracking.swift in Sources */,
 				E5C3BC28228DEA0300DC70BB /* CurrentUser.swift in Sources */,
 				E5B9D0CE228A1A5400D0026E /* AppDelegate.swift in Sources */,
+				E5C2804F22A0755C00FF0F24 /* ClearTableViewCell.swift in Sources */,
 				E5E1E765229329E3000C36DA /* ListOfJobsViewController.swift in Sources */,
 				E5E1E76A22933112000C36DA /* Job.swift in Sources */,
 			);

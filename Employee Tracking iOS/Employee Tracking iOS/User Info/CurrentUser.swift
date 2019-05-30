@@ -230,6 +230,26 @@ class CurrentUser: NSObject {
         }
     }
     
+    
+    
+    
+    // **** saving the users last known location so as to not keep sending redundant **** //
+    // **** data back to the server **** //
+    func saveLastLocation(locationName:String){
+        UserDefaults.standard.set(locationName, forKey: "lastLocation")
+    }
+    
+    func loadLastLocation() -> String{
+        guard let lastLocation = UserDefaults.standard.object(forKey: "lastLocation") else{
+            return ""
+        }
+        return lastLocation as! String
+    }
+    
+    func deleteLastLocation(){
+        UserDefaults.standard.removeObject(forKey: "lastLocation")
+    }
+    
     func detachListeners(){
         loadUserJobsListener?.remove()
         loadUserIdListener?.remove()
