@@ -59,8 +59,6 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     
     
     func loadUserInfoForChangesMadeByAdmin(){
-        
-        print("\ncalled in here....\n")
         guard let userId = UserDefaults.standard.object(forKey: "userId") else{
             return
         }
@@ -120,9 +118,6 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
             locationTracking?.loadUsersjobs(jobs: listOfJobs)
         }
     }
-
-    
-    // **** end of the shared instance of the current user **** //
     
     
     
