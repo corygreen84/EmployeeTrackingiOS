@@ -23,6 +23,8 @@ class ListOfJobsViewController: UIViewController, UITableViewDelegate, UITableVi
         mainList.delegate = self
         mainList.dataSource = self
         
+        mainList.layer.cornerRadius = 5.0
+        
         CurrentUser.sharedInstance.delegate = self
         CurrentUser.sharedInstance.loadUserJobIds()
         

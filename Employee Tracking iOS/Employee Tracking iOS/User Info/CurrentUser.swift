@@ -25,6 +25,9 @@ class CurrentUser: NSObject {
     var dayMonthYear:DateFormatter?
     var hourMinute:DateFormatter?
     
+    var loadUserIdListener: ListenerRegistration?
+    var loadUserJobsListener: ListenerRegistration?
+    
     func deleteUser(){
         self.deleteUserDefaults()
     }
@@ -66,20 +69,19 @@ class CurrentUser: NSObject {
     
     
     func loadUserDefaults() -> (String, String, String, String, String, Int, Int, Bool, [String]){
-        let id = UserDefaults.standard.object(forKey: "userId") as! String
-        let company = UserDefaults.standard.object(forKey: "userCompany") as! String
-        let firstName = UserDefaults.standard.object(forKey: "userFirstName") as! String
-        let lastName = UserDefaults.standard.object(forKey: "userLastName") as! String
-        let email = UserDefaults.standard.object(forKey: "userEmail") as! String
         
-        let uNumber = UserDefaults.standard.object(forKey: "userNumber") as! Int
-        let phoneNumber = UserDefaults.standard.object(forKey: "userPhoneNumber") as! Int
+        let id = UserDefaults.standard.object(forKey: "userId")
+        let company = UserDefaults.standard.object(forKey: "userCompany")
+        let firstName = UserDefaults.standard.object(forKey: "userFirstName")
+        let lastName = UserDefaults.standard.object(forKey: "userLastName")
+        let email = UserDefaults.standard.object(forKey: "userEmail")
+        let uNumber = UserDefaults.standard.object(forKey: "userNumber")
+        let phoneNumber = UserDefaults.standard.object(forKey: "userPhoneNumber")
+        let status = UserDefaults.standard.object(forKey: "userStatus")
+        let jobs = UserDefaults.standard.object(forKey: "userJobs")
         
-        let status = UserDefaults.standard.object(forKey: "userStatus") as! Bool
-        let jobs = UserDefaults.standard.object(forKey: "userJobs") as! [String]
         
-        
-        return (id, company, firstName, lastName, email, uNumber, phoneNumber, status, jobs)
+        return (id as! String, company as! String, firstName as! String, lastName as! String, email as! String, uNumber as! Int, phoneNumber as! Int, status as! Bool, jobs as! [String])
     }
     
     func deleteUserDefaults(){
@@ -94,6 +96,8 @@ class CurrentUser: NSObject {
         UserDefaults.standard.removeObject(forKey: "userPhoneNumber")
         UserDefaults.standard.removeObject(forKey: "userStatus")
         UserDefaults.standard.removeObject(forKey: "userJobs")
+        
+        self.detachListeners()
     }
     
     
@@ -160,7 +164,7 @@ class CurrentUser: NSObject {
         let userCompany = userInfo.1
 
         let db = Firestore.firestore()
-        db.collection("companies").document(userCompany).collection("employees").document(userId).addSnapshotListener { (document, error) in
+        loadUserIdListener = db.collection("companies").document(userCompany).collection("employees").document(userId).addSnapshotListener { (document, error) in
             
             if(error == nil){
                 guard let data = document!.data() else{
@@ -184,7 +188,7 @@ class CurrentUser: NSObject {
     func loadJobWithId(company:String ,id:String){
         let db = Firestore.firestore()
         
-        db.collection("companies").document(company).collection("jobs").document(id).addSnapshotListener { (document, error) in
+        loadUserJobsListener = db.collection("companies").document(company).collection("jobs").document(id).addSnapshotListener { (document, error) in
 
             if(error == nil){
                 guard let data = document?.data() else{
@@ -224,5 +228,10 @@ class CurrentUser: NSObject {
                 }
             }
         }
+    }
+    
+    func detachListeners(){
+        loadUserJobsListener?.remove()
+        loadUserIdListener?.remove()
     }
 }

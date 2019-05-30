@@ -8,10 +8,10 @@
 
 import UIKit
 import CoreLocation
+import Firebase
 
 class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, ReturnUserJobsDelegate, ReturnLocationData {
 
-    
     @IBOutlet weak var mainTableView: UITableView!
     
     var employee:CurrentUser?
@@ -22,6 +22,10 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     var locationTracking:GPSTracking?
     
     var listOfJobs:[Job] = []
+    
+    var employeeStatusChanged = false
+    
+    var listener:ListenerRegistration?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +39,7 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        
-        
-        
+    
         // loading the users jobs //
         CurrentUser.sharedInstance.delegate = self
         CurrentUser.sharedInstance.loadUserJobIds()
@@ -45,9 +47,66 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
         // start up the gps tracking //
         locationTracking = GPSTracking()
         locationTracking?.delegate = self
+        
+        loadUserInfoForChangesMadeByAdmin()
     }
     
-    func returnlocation(location: CLLocation) {
+    
+    func locationStatusDenied() {
+        self.logOffOnClick()
+    }
+    
+    
+    
+    func loadUserInfoForChangesMadeByAdmin(){
+        
+        print("\ncalled in here....\n")
+        guard let userId = UserDefaults.standard.object(forKey: "userId") else{
+            return
+        }
+        guard let userCompany = UserDefaults.standard.object(forKey: "userCompany") else{
+            return
+        }
+        let db = Firestore.firestore()
+        
+    
+        listener = (db.collection("companies").document(userCompany as! String).collection("employees").document(userId as! String).addSnapshotListener { (document, error) in
+        
+            if(error == nil){
+                guard let data = document!.data() else{
+                    return
+                }
+                
+                
+                if(self.employeeStatusChanged == false){
+                    let currentUserInfo = CurrentUser.sharedInstance.loadUserDefaults()
+                    
+                    let currentUserFirstName = currentUserInfo.2
+                    let currentUserLastName = currentUserInfo.3
+                    let currentUserEmail = currentUserInfo.4
+                    let currentUserNumber = currentUserInfo.5
+                    let currentUserPhone = currentUserInfo.6
+                    
+                    if(currentUserFirstName != data["first"] as! String ||
+                        currentUserLastName != data["last"] as! String ||
+                        currentUserEmail != data["email"] as! String ||
+                        currentUserNumber != data["employeeNumber"] as! Int ||
+                        currentUserPhone != data["phoneNumber"] as! Int){
+                        
+                        self.employeeStatusChanged = true
+                        
+                        let alert = UIAlertController(title: "User info changed.", message: "There were changes made by the Admin to your employee info.  Please contact your admin and try logging in again with the updated info.", preferredStyle: UIAlertController.Style.alert)
+                        let okButton = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
+
+                            self.logOffOnClick()
+                        })
+                        alert.addAction(okButton)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+            })
+    
     }
     
     
@@ -68,7 +127,11 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     
     
     @objc func logOffOnClick(){
+        
+        self.listener?.remove()
+        
         CurrentUser.sharedInstance.deleteUser()
+        CurrentUser.sharedInstance.detachListeners()
         
         locationTracking?.endLocationTracking()
         self.navigationController?.popToRootViewController(animated: true)

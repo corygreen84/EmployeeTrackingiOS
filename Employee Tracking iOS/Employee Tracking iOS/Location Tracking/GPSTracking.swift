@@ -11,12 +11,12 @@ import CoreLocation
 import Firebase
 
 @objc protocol ReturnLocationData{
-    func returnlocation(location:CLLocation)
+    func locationStatusDenied()
 }
 
 class GPSTracking: NSObject, CLLocationManagerDelegate {
     
-    var radius:Int = 500
+    var radius:Int = 400
     var timeIntervalOffSite = 1
     var timeIntervalOnSite = 1
     var locationManager:CLLocationManager?
@@ -40,6 +40,13 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         
+        self.setup()
+    }
+    
+    
+    
+    
+    func setup(){
         dayMonthYear = DateFormatter()
         dayMonthYear?.dateFormat = "MM-dd-yyyy"
         
@@ -65,6 +72,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         // then, if there are jobs, turn it back on //
         if(arrayOfJobs.count != 0){
             if(locationTrackingToggle == false){
+                print("\nim in here....\n")
                 startLocationTracking()
             }
         }else{
@@ -76,7 +84,12 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
 
     // if the user declines usage //
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
+        switch status {
+        case .denied:
+            self.delegate?.locationStatusDenied()
+        default:
+            break
+        }
     }
     
     
@@ -90,6 +103,8 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         self.singleLocationUpdate()
         locationManager?.startUpdatingLocation()
         locationTrackingToggle = true
+        
+        print("\nstarted location tracking \n")
     }
     
     func endLocationTracking(){
@@ -107,8 +122,6 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
 
         let lastLocation:CLLocation = locations.last!
 
-        
-        self.delegate?.returnlocation(location: lastLocation)
             
             // getting the first location //
             if(initialLocation == nil){
@@ -123,38 +136,25 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                     // if the user is within the circle of a job //
                     if(Int(distanceFromJob!) <= radius  ){
                         atAJob = true
-                        //let difference = Calendar.current.dateComponents([.minute], from: initialLocation!.timestamp, to: lastLocation.timestamp)
-                        //let differenceInMinutes = difference.minute
-                        
-                        //if(differenceInMinutes! >= timeIntervalOnSite){
+
                         initialLocation = lastLocation
+                        
                         if(jobs.jobName! != jobName){
                             self.sendInfoToServerAtJob(jobId: jobs.jobID!, jobName: jobs.jobName!, jobAddress: jobs.jobAddress!, isAtJob: atAJob)
                             jobName = jobs.jobName!
                         }
-
-                        
-                        //}
                     }
                 }
 
                 // for when the user is not at any job //
                 if(atAJob == false){
-                    //let difference = Calendar.current.dateComponents([.minute], from: initialLocation!.timestamp, to: lastLocation.timestamp)
-                    //let differenceInMinutes = difference.minute
-
-                    //if(differenceInMinutes! >= timeIntervalOffSite){
                         initialLocation = lastLocation
-                    // should be making a judgement call for the users speed //
-                    // here.... //
-                    
+
                     // send info off to server //
                     if(jobName != "Offsite"){
                         self.sendInfoToServerOffJob()
                         jobName = "Offsite"
                     }
-                        //self.sendInfoToServerOffJob()
-                    //}
                 }
             }
     }

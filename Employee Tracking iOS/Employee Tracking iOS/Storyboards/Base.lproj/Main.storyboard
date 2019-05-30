@@ -97,7 +97,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-1" translatesAutoresizingMaskIntoConstraints="NO" id="Pkx-zM-pjZ">
-                                <rect key="frame" x="0.0" y="0.0" width="1280" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="16" height="896"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3sz-bF-GH2">
                                 <rect key="frame" x="20" y="197" width="374" height="665"/>
@@ -242,16 +242,6 @@
                                     <constraint firstAttribute="height" constant="200" id="bdZ-Bl-Le8"/>
                                 </constraints>
                             </mapView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RRI-Ge-Nyz">
-                                <rect key="frame" x="20" y="554" width="374" height="190"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="190" id="wtR-nr-TBO"/>
-                                </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ex7-JF-OQL">
                                 <rect key="frame" x="20" y="455" width="170" height="30"/>
                                 <nil key="textColor"/>
@@ -270,22 +260,19 @@
                                     <constraint firstAttribute="height" constant="50" id="R6W-HE-RPZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="rDM-9h-Esp" secondAttribute="trailing" id="7lG-9P-lJV"/>
-                            <constraint firstItem="RRI-Ge-Nyz" firstAttribute="leading" secondItem="wrR-Xt-Xmi" secondAttribute="leading" constant="20" id="Dfp-9e-Qrx"/>
                             <constraint firstItem="Pkj-Sd-qlf" firstAttribute="leading" secondItem="ex7-JF-OQL" secondAttribute="trailing" constant="34" id="EWX-mn-bfo"/>
                             <constraint firstItem="Pkj-Sd-qlf" firstAttribute="top" secondItem="7Jf-7f-1J2" secondAttribute="bottom" constant="8" id="Mr8-iu-bgm"/>
                             <constraint firstItem="7Jf-7f-1J2" firstAttribute="leading" secondItem="wrR-Xt-Xmi" secondAttribute="leading" constant="20" id="U9H-g4-6wz"/>
                             <constraint firstItem="wrR-Xt-Xmi" firstAttribute="trailing" secondItem="Pkj-Sd-qlf" secondAttribute="trailing" constant="20" id="Yga-dD-y5R"/>
                             <constraint firstItem="ex7-JF-OQL" firstAttribute="top" secondItem="7Jf-7f-1J2" secondAttribute="bottom" constant="8" id="bga-97-ueV"/>
                             <constraint firstItem="jRQ-T0-20P" firstAttribute="centerX" secondItem="rDM-9h-Esp" secondAttribute="centerX" id="cIB-QK-XX1"/>
-                            <constraint firstItem="RRI-Ge-Nyz" firstAttribute="top" secondItem="ex7-JF-OQL" secondAttribute="bottom" constant="69" id="cuz-ho-WQC"/>
-                            <constraint firstItem="wrR-Xt-Xmi" firstAttribute="trailing" secondItem="RRI-Ge-Nyz" secondAttribute="trailing" constant="20" id="dox-ON-twu"/>
                             <constraint firstAttribute="bottom" secondItem="rDM-9h-Esp" secondAttribute="bottom" id="exo-dk-qO2"/>
                             <constraint firstItem="rDM-9h-Esp" firstAttribute="leading" secondItem="B8o-Jh-VV9" secondAttribute="leading" id="g7h-13-iDY"/>
                             <constraint firstItem="jRQ-T0-20P" firstAttribute="leading" secondItem="wrR-Xt-Xmi" secondAttribute="leading" constant="20" id="iDd-yB-REt"/>
@@ -304,7 +291,6 @@
                         <outlet property="latTextField" destination="Pkj-Sd-qlf" id="bjh-Ji-xFA"/>
                         <outlet property="longTextField" destination="ex7-JF-OQL" id="LWi-8M-wKg"/>
                         <outlet property="mainMapView" destination="7Jf-7f-1J2" id="Ku2-Zd-TD8"/>
-                        <outlet property="notesTextView" destination="RRI-Ge-Nyz" id="MUr-o4-io0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xih-1g-w52" userLabel="First Responder" sceneMemberID="firstResponder"/>

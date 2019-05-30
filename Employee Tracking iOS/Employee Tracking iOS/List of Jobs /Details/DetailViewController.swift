@@ -16,14 +16,13 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var mainMapView: MKMapView!
     @IBOutlet weak var longTextField: UITextField!
     @IBOutlet weak var latTextField: UITextField!
-    @IBOutlet weak var notesTextView: UITextView!
     
     var job:Job?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        mainMapView.layer.cornerRadius = 5.0
 
         if(job != nil){
             self.title = job!.jobName
