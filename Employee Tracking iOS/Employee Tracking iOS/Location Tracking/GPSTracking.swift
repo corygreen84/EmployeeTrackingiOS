@@ -16,7 +16,7 @@ import Firebase
 
 class GPSTracking: NSObject, CLLocationManagerDelegate {
     
-    var radius:Int = 50
+    var radius:Int = 100
     var timeIntervalOffSite = 1
     var timeIntervalOnSite = 1
     var locationManager:CLLocationManager?
