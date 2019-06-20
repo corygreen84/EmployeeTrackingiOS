@@ -1,0 +1,6 @@
+framework module Pods_EmployeeTrackingTake2 {
+  umbrella header "Pods-EmployeeTrackingTake2-umbrella.h"
+
+  export *
+  module * { export * }
+}
