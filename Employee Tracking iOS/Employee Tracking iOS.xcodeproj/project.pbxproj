@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E52697CD2293475600144BCB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52697CC2293475600144BCB /* DetailViewController.swift */; };
 		E52697D0229355C600144BCB /* MainPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52697CF229355C600144BCB /* MainPageTableViewCell.swift */; };
+		E52C298F22A981D2000B9E24 /* SendLogOffTextFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C298E22A981D2000B9E24 /* SendLogOffTextFile.swift */; };
+		E551BAA422AB002F002E6222 /* LoggingOutSpinnerAndBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551BAA322AB002F002E6222 /* LoggingOutSpinnerAndBackground.swift */; };
 		E5B9D0CE228A1A5400D0026E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9D0CD228A1A5400D0026E /* AppDelegate.swift */; };
 		E5B9D0D0228A1A5400D0026E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9D0CF228A1A5400D0026E /* ViewController.swift */; };
 		E5B9D0D3228A1A5400D0026E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5B9D0D1228A1A5400D0026E /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 		D76C73BF83674A48503C03AE /* Pods-Employee Tracking iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Employee Tracking iOS.debug.xcconfig"; path = "Target Support Files/Pods-Employee Tracking iOS/Pods-Employee Tracking iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E52697CC2293475600144BCB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E52697CF229355C600144BCB /* MainPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageTableViewCell.swift; sourceTree = "<group>"; };
+		E52C298E22A981D2000B9E24 /* SendLogOffTextFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendLogOffTextFile.swift; sourceTree = "<group>"; };
+		E551BAA322AB002F002E6222 /* LoggingOutSpinnerAndBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingOutSpinnerAndBackground.swift; sourceTree = "<group>"; };
 		E5B9D0CA228A1A5400D0026E /* Employee Tracking iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Employee Tracking iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5B9D0CD228A1A5400D0026E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5B9D0CF228A1A5400D0026E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 			children = (
 				E5C3BC22228DE1DA00DC70BB /* MainPageViewController.swift */,
 				E52697CF229355C600144BCB /* MainPageTableViewCell.swift */,
+				E551BAA322AB002F002E6222 /* LoggingOutSpinnerAndBackground.swift */,
 			);
 			path = "Main Page";
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				E5C3BC27228DEA0300DC70BB /* CurrentUser.swift */,
+				E52C298E22A981D2000B9E24 /* SendLogOffTextFile.swift */,
 			);
 			path = "User Info";
 			sourceTree = "<group>";
@@ -347,6 +353,8 @@
 				E5C3BC23228DE1DA00DC70BB /* MainPageViewController.swift in Sources */,
 				E5B9D0D0228A1A5400D0026E /* ViewController.swift in Sources */,
 				E5D45A97228B65C700EDC565 /* Colors.swift in Sources */,
+				E551BAA422AB002F002E6222 /* LoggingOutSpinnerAndBackground.swift in Sources */,
+				E52C298F22A981D2000B9E24 /* SendLogOffTextFile.swift in Sources */,
 				E5E1E76122931138000C36DA /* GPSTracking.swift in Sources */,
 				E5C3BC28228DEA0300DC70BB /* CurrentUser.swift in Sources */,
 				E5B9D0CE228A1A5400D0026E /* AppDelegate.swift in Sources */,

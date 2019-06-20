@@ -11,6 +11,12 @@ import CoreLocation
 import Firebase
 
 class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewDataSource, ReturnUserJobsDelegate, ReturnLocationData {
+    
+    
+    func locationStatusDenied() {
+        
+    }
+    
 
     @IBOutlet weak var mainTableView: UITableView!
     
@@ -52,9 +58,7 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
     }
     
     
-    func locationStatusDenied() {
-        self.logOffOnClick()
-    }
+    
     
     
     
@@ -119,6 +123,18 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
         }
     }
     
+    func loadingPassOn(loading: Bool) {
+        let opaqueBackgroundAndSpinner:LoggingOutSpinnerAndBackground = LoggingOutSpinnerAndBackground(view: self.view)
+        if(!loading){
+            opaqueBackgroundAndSpinner.removeOpaqueBackground()
+            self.navigationController?.popToRootViewController(animated: true)
+        }else{
+
+            opaqueBackgroundAndSpinner.createOpaqueBackground()
+            
+        }
+    }
+    
     
     
     @objc func logOffOnClick(){
@@ -129,7 +145,6 @@ class MainPageViewController: UIViewController,UITableViewDelegate, UITableViewD
         CurrentUser.sharedInstance.detachListeners()
         
         locationTracking?.endLocationTracking()
-        self.navigationController?.popToRootViewController(animated: true)
     }
     
     

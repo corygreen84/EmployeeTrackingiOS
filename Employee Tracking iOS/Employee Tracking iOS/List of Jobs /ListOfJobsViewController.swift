@@ -11,6 +11,10 @@ import Firebase
 import CoreLocation
 
 class ListOfJobsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ReturnUserJobsDelegate {
+    func loadingPassOn(loading: Bool) {
+        
+    }
+    
 
     @IBOutlet weak var mainList: UITableView!
     

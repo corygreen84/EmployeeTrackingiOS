@@ -12,9 +12,10 @@ import CoreLocation
 
 @objc protocol ReturnUserJobsDelegate{
     func returnUsersJobs(jobs: [Job], status:Bool)
+    func loadingPassOn(loading:Bool)
 }
 
-class CurrentUser: NSObject {
+class CurrentUser: NSObject, ReturnStatusOfFileLoadToFirebaseDelegate {
     static let sharedInstance = CurrentUser()
 
     var userJobsArray:[Job] = []
@@ -24,9 +25,11 @@ class CurrentUser: NSObject {
     
     var dayMonthYear:DateFormatter?
     var hourMinute:DateFormatter?
-    
+
     var loadUserIdListener: ListenerRegistration?
     var loadUserJobsListener: ListenerRegistration?
+    
+    var jobData:[String:[String:String]] = [:]
     
     func deleteUser(){
         self.deleteUserDefaults()
@@ -103,56 +106,12 @@ class CurrentUser: NSObject {
     
     
     
-    func changeStatusInFirebase(status:Bool){
-        let db = Firestore.firestore()
-        
-        let _id = UserDefaults.standard.object(forKey: "userId") as? String
-        let _company = UserDefaults.standard.object(forKey: "userCompany") as? String
-        
-        dayMonthYear = DateFormatter()
-        dayMonthYear?.dateFormat = "MM-dd-yyyy"
-        
-        hourMinute = DateFormatter()
-        hourMinute?.dateFormat = "HH:mm"
-        
-        
-        let date = Date()
-        let dayMonthYearString:String = ((dayMonthYear?.string(from: date))!)
-        
-        let hourMinuteString:String = ((hourMinute?.string(from: date))!)
-        
-        
-
-        if(_id != nil && _company != nil){
-            let ref = db.collection("companies").document(_company!).collection("employees").document(_id!)
-            if(status){
-                
-                // need to create a log on event for the users employee report //
-                let objectToServer = ["date": dayMonthYearString, "time": hourMinuteString, "jobName": "Logged In", "jobAddress": "", "jobId":"Offsite"]
-                
-                
-                ref.updateData(["status": status, "jobHistory": FieldValue.arrayUnion([objectToServer])]){err in
-                    if err != nil{
-                        print("error writting to document")
-                    }else{
-                    
-                    }
-                }
-            }else{
-                
-                // need to create a logg off event for the users employee report //
-                let objectToServer = ["date": dayMonthYearString, "time": hourMinuteString, "jobName": "Logged Off", "jobAddress": "", "jobId":"Offsite"]
-                
-                ref.updateData(["status": status, "jobsCurrentlyAt": "", "jobHistory": FieldValue.arrayUnion([objectToServer])]){err in
-                    if err != nil{
-                        print("error writting to document")
-                    }else{
-                        
-                    }
-                }
-            }
-        }
-    }
+    
+    
+    
+    
+    
+    
     
     
     
@@ -253,5 +212,183 @@ class CurrentUser: NSObject {
     func detachListeners(){
         loadUserJobsListener?.remove()
         loadUserIdListener?.remove()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // **** updates to the server **** //
+    func changeStatusInFirebase(status:Bool){
+        let db = Firestore.firestore()
+        
+        let _id = UserDefaults.standard.object(forKey: "userId") as? String
+        let _company = UserDefaults.standard.object(forKey: "userCompany") as? String
+        
+        dayMonthYear = DateFormatter()
+        dayMonthYear?.dateFormat = "MM-dd-yyyy"
+        
+        hourMinute = DateFormatter()
+        hourMinute?.dateFormat = "HH:mm"
+        
+        
+        let date = Date()
+        let dayMonthYearString:String = ((dayMonthYear?.string(from: date))!)
+        
+        let hourMinuteString:String = ((hourMinute?.string(from: date))!)
+        
+        
+        
+        if(_id != nil && _company != nil){
+            
+            
+            
+            let ref = db.collection("companies").document(_company!).collection("employees").document(_id!)
+            
+            // logging in //
+            if(status){
+                
+                
+                // need to generate a unique id //
+                let identifier = UUID()
+                
+                // generating an object to send to the server //
+                let objectToServer = "\"\(identifier)\":{\"date\": \"\(dayMonthYearString)\", \"time\": \"\(hourMinuteString)\", \"jobName\": \"Logged In\", \"jobAddress\": \"Offsite\", \"jobId\": \"Offsite\"}"
+                
+                
+                ref.updateData(["status": status, "jobHistory": FieldValue.arrayUnion([objectToServer])]) { (error) in
+                    if(error == nil){
+                        print("good to go")
+                    }
+                }
+                
+            // logging off //
+            }else{
+                
+                let identifier = UUID()
+                // generating an object to send to the server //
+                let objectToServer = "\"\(identifier)\":{\"date\": \"\(dayMonthYearString)\", \"time\": \"\(hourMinuteString)\", \"jobName\": \"Logged Off\", \"jobAddress\": \"Offsite\", \"jobId\": \"Offsite\"}"
+                
+
+                ref.updateData(["status": status, "jobsCurrentlyAt": "", "jobHistory": FieldValue.arrayUnion([objectToServer])]){err in
+                    if err != nil{
+                        print("error writting to document")
+
+                    }else{
+ 
+                        // **** because the user is logging off - we send off the compiled text string to storage **** //
+                        
+                        let sendLogOutFile = SendLogOffTextFile()
+                        sendLogOutFile.delegate = self
+                        sendLogOutFile.loadUserInfoFromServer(userCompany: _company!, userId: _id!)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    // sends info to the server if offsite //
+    func sendInfoToServerOffJob(){
+        guard let userId = UserDefaults.standard.object(forKey: "userId") else{
+            return
+        }
+        
+        guard let userCompany = UserDefaults.standard.object(forKey: "userCompany") else{
+            return
+        }
+        
+        dayMonthYear = DateFormatter()
+        dayMonthYear?.dateFormat = "MM-dd-yyyy"
+        
+        hourMinute = DateFormatter()
+        hourMinute?.dateFormat = "HH:mm"
+        
+        
+        
+        // constructing the event object //
+        let date = Date()
+        let dayMonthYearString:String = ((dayMonthYear?.string(from: date))!)
+        
+        let hourMinuteString:String = ((hourMinute?.string(from: date))!)
+        
+
+        let identifier = UUID()
+        // generating an object to send to the server //
+        let objectToServer = "\"\(identifier)\":{\"date\": \"\(dayMonthYearString)\", \"time\": \"\(hourMinuteString)\", \"jobName\": \"Offsite\", \"jobAddress\": \"Offsite\", \"jobId\": \"Offsite\"}"
+
+        let db = Firestore.firestore()
+        let ref = db.collection("companies").document(userCompany as! String).collection("employees").document(userId as! String)
+        
+        
+        ref.updateData(["jobHistory": FieldValue.arrayUnion([objectToServer]), "jobsCurrentlyAt": "Offsite"]){err in
+            if(err != nil){
+                print("error in updating \(err.debugDescription)")
+            }else{
+                
+            }
+            
+        }
+    }
+    
+    
+    
+    // sends info to the server if on the job //
+    func sendInfoToServerAtJob(jobId:String, jobName:String, jobAddress:String, isAtJob: Bool){
+        
+        guard let userId = UserDefaults.standard.object(forKey: "userId") else{
+            return
+        }
+        
+        guard let userCompany = UserDefaults.standard.object(forKey: "userCompany") else{
+            return
+        }
+        
+        
+        
+        
+        dayMonthYear = DateFormatter()
+        dayMonthYear?.dateFormat = "MM-dd-yyyy"
+        
+        hourMinute = DateFormatter()
+        hourMinute?.dateFormat = "HH:mm"
+        
+        // constructing the event object //
+        let date = Date()
+        let dayMonthYearString:String = ((dayMonthYear?.string(from: date))!)
+        
+        let hourMinuteString:String = ((hourMinute?.string(from: date))!)
+        
+        let identifier = UUID()
+        // generating an object to send to the server //
+        let objectToServer = "\"\(identifier)\":{\"date\": \"\(dayMonthYearString)\", \"time\": \"\(hourMinuteString)\", \"jobName\": \"\(jobName)\", \"jobAddress\": \"\(jobName)\", \"jobId\": \"\(jobId)\"}"
+
+        let db = Firestore.firestore()
+        let ref = db.collection("companies").document(userCompany as! String).collection("employees").document(userId as! String)
+        
+        ref.updateData(["jobHistory": FieldValue.arrayUnion([objectToServer]), "jobsCurrentlyAt": jobName]){err in
+            if(err != nil){
+                print("error in updating \(err.debugDescription)")
+            }else{
+                
+            }
+        }
+    }
+    
+    
+    func status(loading: Bool) {
+        self.delegate?.loadingPassOn(loading: loading)
     }
 }

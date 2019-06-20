@@ -14,7 +14,7 @@ import Firebase
     func locationStatusDenied()
 }
 
-class GPSTracking: NSObject, CLLocationManagerDelegate {
+class GPSTracking: NSObject, CLLocationManagerDelegate{
     
     var radius:Int = 100
     var timeIntervalOffSite = 1
@@ -30,12 +30,13 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
     
     var initialLocation:CLLocation?
     
-    var dayMonthYear:DateFormatter?
-    var hourMinute:DateFormatter?
-    
     var delegate:ReturnLocationData?
     
     var jobName = ""
+    
+    var _arrayOfJobs:[AnyObject] = []
+    
+    
     
     override init() {
         super.init()
@@ -43,15 +44,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
         self.setup()
     }
     
-    
-    
-    
     func setup(){
-        dayMonthYear = DateFormatter()
-        dayMonthYear?.dateFormat = "MM-dd-yyyy"
-        
-        hourMinute = DateFormatter()
-        hourMinute?.dateFormat = "HH:mm"
         
         locationManager = CLLocationManager()
         locationManager?.delegate = self
@@ -121,7 +114,6 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
 
         let lastLocation:CLLocation = locations.last!
 
-            
             // getting the first location //
             if(initialLocation == nil){
                 initialLocation = lastLocation
@@ -139,7 +131,9 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
                         initialLocation = lastLocation
                         
                         if(jobs.jobName! != jobName){
-                            self.sendInfoToServerAtJob(jobId: jobs.jobID!, jobName: jobs.jobName!, jobAddress: jobs.jobAddress!, isAtJob: atAJob)
+
+                            // sends info that the user has logged out //
+                            CurrentUser.sharedInstance.sendInfoToServerAtJob(jobId: jobs.jobID!, jobName: jobs.jobName!, jobAddress: jobs.jobAddress!, isAtJob: atAJob)
                             jobName = jobs.jobName!
                         }
                     }
@@ -151,75 +145,12 @@ class GPSTracking: NSObject, CLLocationManagerDelegate {
 
                     // send info off to server //
                     if(jobName != "Offsite"){
-                        self.sendInfoToServerOffJob()
+                        //self.sendInfoToServerOffJob()
+                        CurrentUser.sharedInstance.sendInfoToServerOffJob()
                         jobName = "Offsite"
                         
                     }
                 }
             }
-    }
-    
-    
-    // sends info to the server if on the job //
-    func sendInfoToServerAtJob(jobId:String, jobName:String, jobAddress:String, isAtJob: Bool){
-        
-        guard let userId = UserDefaults.standard.object(forKey: "userId") else{
-            return
-        }
-        
-        guard let userCompany = UserDefaults.standard.object(forKey: "userCompany") else{
-            return
-        }
-        
-        // constructing the event object //
-        let date = Date()
-        let dayMonthYearString:String = ((dayMonthYear?.string(from: date))!)
-        
-        let hourMinuteString:String = ((hourMinute?.string(from: date))!)
-        
-        let objectToServer = ["date": dayMonthYearString, "time": hourMinuteString, "jobName": jobName, "jobAddress": jobAddress, "jobId":jobId]
-
-
-        let db = Firestore.firestore()
-        let ref = db.collection("companies").document(userCompany as! String).collection("employees").document(userId as! String);
-        ref.updateData(["jobHistory": FieldValue.arrayUnion([objectToServer]), "jobsCurrentlyAt": jobName]){err in
-            if(err != nil){
-                print("error in updating \(err.debugDescription)")
-            }
-        }
-    }
-    
-    
-    
-    
-    
-    // sends info to the server if offsite //
-    func sendInfoToServerOffJob(){
-        guard let userId = UserDefaults.standard.object(forKey: "userId") else{
-            return
-        }
-        
-        guard let userCompany = UserDefaults.standard.object(forKey: "userCompany") else{
-            return
-        }
-        
-        
-        // constructing the event object //
-        let date = Date()
-        let dayMonthYearString:String = ((dayMonthYear?.string(from: date))!)
-        
-        let hourMinuteString:String = ((hourMinute?.string(from: date))!)
-
-        let objectToServer = ["date": dayMonthYearString, "time": hourMinuteString, "jobName": "Offsite", "jobAddress": "Offsite", "jobId":"Offsite"]
-        
-
-        let db = Firestore.firestore()
-        let ref = db.collection("companies").document(userCompany as! String).collection("employees").document(userId as! String);
-        ref.updateData(["jobHistory": FieldValue.arrayUnion([objectToServer]), "jobsCurrentlyAt": "Offsite"]){err in
-            if(err != nil){
-                print("error in updating \(err.debugDescription)")
-            }
-        }
-        
     }
 }
