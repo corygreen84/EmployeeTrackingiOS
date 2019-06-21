@@ -131,6 +131,52 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FbX-6P-jVs">
                                 <rect key="frame" x="20" y="210" width="374" height="546"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="JobsCell" rowHeight="70" id="ogK-ah-Ms6" customClass="JobsCustomCell" customModule="EmployeeTrackingTake2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ogK-ah-Ms6" id="2uO-Dh-Fih">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="69.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qx7-bX-Jee">
+                                                    <rect key="frame" x="20" y="11" width="163" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ad-cv-MpH">
+                                                    <rect key="frame" x="20" y="40" width="334" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsx-3e-SfU">
+                                                    <rect key="frame" x="191" y="11" width="163" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7Ad-cv-MpH" firstAttribute="top" secondItem="Qx7-bX-Jee" secondAttribute="bottom" constant="8" id="5Ej-Mo-r7k"/>
+                                                <constraint firstItem="7Ad-cv-MpH" firstAttribute="leading" secondItem="2uO-Dh-Fih" secondAttribute="leading" constant="20" id="NID-up-vMx"/>
+                                                <constraint firstItem="Qx7-bX-Jee" firstAttribute="top" secondItem="2uO-Dh-Fih" secondAttribute="top" constant="11" id="V0Z-cY-WoJ"/>
+                                                <constraint firstItem="wsx-3e-SfU" firstAttribute="leading" secondItem="Qx7-bX-Jee" secondAttribute="trailing" constant="8" id="X8X-1F-2uH"/>
+                                                <constraint firstItem="wsx-3e-SfU" firstAttribute="width" secondItem="Qx7-bX-Jee" secondAttribute="width" id="aXq-9t-9hL"/>
+                                                <constraint firstItem="Qx7-bX-Jee" firstAttribute="leading" secondItem="2uO-Dh-Fih" secondAttribute="leading" constant="20" id="b78-yt-wqU"/>
+                                                <constraint firstAttribute="trailing" secondItem="7Ad-cv-MpH" secondAttribute="trailing" constant="20" id="fvZ-4q-9Lj"/>
+                                                <constraint firstAttribute="trailing" secondItem="wsx-3e-SfU" secondAttribute="trailing" constant="20" id="kY2-Ao-eFk"/>
+                                                <constraint firstItem="wsx-3e-SfU" firstAttribute="top" secondItem="2uO-Dh-Fih" secondAttribute="top" constant="11" id="qHA-Gj-V4K"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="AddressLabel" destination="7Ad-cv-MpH" id="jT1-50-0RK"/>
+                                            <outlet property="DateLabel" destination="wsx-3e-SfU" id="KSk-WZ-wKc"/>
+                                            <outlet property="NameLabel" destination="Qx7-bX-Jee" id="v15-XB-gAp"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

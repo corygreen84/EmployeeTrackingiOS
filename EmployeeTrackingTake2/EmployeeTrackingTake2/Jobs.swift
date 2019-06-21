@@ -15,4 +15,5 @@ class Jobs: NSObject {
     var address:String?
     var date:String?
     var coordinates: CLLocation?
+    var notes:String?
 }
