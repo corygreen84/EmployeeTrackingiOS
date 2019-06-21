@@ -84,8 +84,9 @@ class LoadingJobs: NSObject {
                     return
                 }
 
-                self.arrayOfJobIds = data["jobs"] as? NSArray as! [String]
                 
+                self.arrayOfJobIds = data["jobs"] as? NSArray as! [String]
+                self.arrayOfJobs.removeAll()
                 for job in self.arrayOfJobIds{
                     
                     self.loadJobs(company: company, jobId: job)
@@ -122,15 +123,42 @@ class LoadingJobs: NSObject {
                 newJob.notes = notes
                 newJob.id = jobId
 
-                self.arrayOfJobs.append(newJob)
                 
-                if(self.arrayOfJobs.count == self.arrayOfJobIds.count){
-                    for jobs in self.arrayOfJobs{
-                        if(self.arrayOfJobIds.contains(jobs.id!)){
-                            
+                if(self.arrayOfJobs.count == 0){
+                    self.arrayOfJobs.append(newJob)
+                }else{
+                    var exists = false
+                    var indexFound = 0
+                    for (index, jobs) in self.arrayOfJobs.enumerated(){
+                        if(jobs.id == jobId){
+                            exists = true
+                            indexFound = index
+                        }
+                    }
+                    
+                    if(!exists){
+                        self.arrayOfJobs.append(newJob)
+                    }else{
+                        self.arrayOfJobs.remove(at: indexFound)
+                        self.arrayOfJobs.append(newJob)
+                    }
+                    
+                }
+                
+                
+                if(self.arrayOfJobIds.count < self.arrayOfJobs.count){
+                    
+                    for (index, jobs) in self.arrayOfJobs.enumerated(){
+                        if(!(self.arrayOfJobIds.contains(jobs.id!))){
+                            self.arrayOfJobs.remove(at: index)
                         }
                     }
                 }
+                
+                
+                
+                
+                self.delegate?.returnJobData(jobs: self.arrayOfJobs)
                 
                 
                 /*
