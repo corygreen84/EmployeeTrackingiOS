@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		C3054DD5891B0ACCA5793307 /* Pods_EmployeeTrackingTake2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 367BC98DDA7AD821D5373341 /* Pods_EmployeeTrackingTake2.framework */; };
+		E5066C7A22BD3BB100CF25D4 /* Jobs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5066C7922BD3BB100CF25D4 /* Jobs.swift */; };
 		E55F4B8122BC0F63004B682B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8022BC0F63004B682B /* Colors.swift */; };
+		E55F4B8622BC1C8E004B682B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */; };
+		E55F4B8922BC1EB6004B682B /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8822BC1EB6004B682B /* JobsViewController.swift */; };
+		E55F4B8B22BC25E4004B682B /* UserDefaultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8A22BC25E4004B682B /* UserDefaultData.swift */; };
+		E55F4B8D22BC35B1004B682B /* LoadingJobs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */; };
 		E5DA05E122BC008A0039CC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA05E022BC008A0039CC58 /* AppDelegate.swift */; };
 		E5DA05E322BC008A0039CC58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA05E222BC008A0039CC58 /* ViewController.swift */; };
 		E5DA05E622BC008A0039CC58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5DA05E422BC008A0039CC58 /* Main.storyboard */; };
@@ -22,7 +27,12 @@
 		108FFB242536E9532057890C /* Pods-EmployeeTrackingTake2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeTrackingTake2.debug.xcconfig"; path = "Target Support Files/Pods-EmployeeTrackingTake2/Pods-EmployeeTrackingTake2.debug.xcconfig"; sourceTree = "<group>"; };
 		1DFC65ABA4805C68914A7EFB /* Pods-EmployeeTrackingTake2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeTrackingTake2.release.xcconfig"; path = "Target Support Files/Pods-EmployeeTrackingTake2/Pods-EmployeeTrackingTake2.release.xcconfig"; sourceTree = "<group>"; };
 		367BC98DDA7AD821D5373341 /* Pods_EmployeeTrackingTake2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmployeeTrackingTake2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5066C7922BD3BB100CF25D4 /* Jobs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jobs.swift; sourceTree = "<group>"; };
 		E55F4B8022BC0F63004B682B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		E55F4B8822BC1EB6004B682B /* JobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
+		E55F4B8A22BC25E4004B682B /* UserDefaultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultData.swift; sourceTree = "<group>"; };
+		E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingJobs.swift; sourceTree = "<group>"; };
 		E5DA05DD22BC008A0039CC58 /* EmployeeTrackingTake2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeTrackingTake2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5DA05E022BC008A0039CC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5DA05E222BC008A0039CC58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +89,24 @@
 			path = Pictures;
 			sourceTree = "<group>";
 		};
+		E55F4B8722BC1E8E004B682B /* Main Tab View */ = {
+			isa = PBXGroup;
+			children = (
+				E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */,
+				E55F4B8822BC1EB6004B682B /* JobsViewController.swift */,
+				E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */,
+			);
+			path = "Main Tab View";
+			sourceTree = "<group>";
+		};
+		E55F4B8E22BC35CE004B682B /* User default Data */ = {
+			isa = PBXGroup;
+			children = (
+				E55F4B8A22BC25E4004B682B /* UserDefaultData.swift */,
+			);
+			path = "User default Data";
+			sourceTree = "<group>";
+		};
 		E5DA05D422BC008A0039CC58 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +137,9 @@
 				E5DA05EC22BC008B0039CC58 /* Info.plist */,
 				E5DA05F422BC07B10039CC58 /* GoogleService-Info.plist */,
 				E55F4B8222BC0F6A004B682B /* Colors */,
+				E55F4B8722BC1E8E004B682B /* Main Tab View */,
+				E55F4B8E22BC35CE004B682B /* User default Data */,
+				E5066C7922BD3BB100CF25D4 /* Jobs.swift */,
 			);
 			path = EmployeeTrackingTake2;
 			sourceTree = "<group>";
@@ -259,7 +290,12 @@
 			files = (
 				E5DA05E322BC008A0039CC58 /* ViewController.swift in Sources */,
 				E55F4B8122BC0F63004B682B /* Colors.swift in Sources */,
+				E55F4B8622BC1C8E004B682B /* MainTabBarController.swift in Sources */,
+				E5066C7A22BD3BB100CF25D4 /* Jobs.swift in Sources */,
+				E55F4B8922BC1EB6004B682B /* JobsViewController.swift in Sources */,
+				E55F4B8B22BC25E4004B682B /* UserDefaultData.swift in Sources */,
 				E5DA05E122BC008A0039CC58 /* AppDelegate.swift in Sources */,
+				E55F4B8D22BC35B1004B682B /* LoadingJobs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

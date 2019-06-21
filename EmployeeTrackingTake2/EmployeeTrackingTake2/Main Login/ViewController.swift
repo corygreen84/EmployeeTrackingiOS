@@ -22,9 +22,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var companyToggle = false
     var employeePasswordToggle = false
     
+    var handle: AuthStateDidChangeListenerHandle?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // if the user is still signed in //
+        // push them to the main page //
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            let tabBarView = self.storyboard?.instantiateViewController(withIdentifier: "TabBar") as! MainTabBarController
+            self.navigationController?.pushViewController(tabBarView, animated: true)
+        }
         
         emailTextField.delegate = self
         companyTextField.delegate = self
@@ -37,8 +47,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         view.addGestureRecognizer(tapGesture)
     
-        //self.textFieldView.layer.cornerRadius = 20.0
+        signInButton.isEnabled = false
+        signInButton.backgroundColor = Colors.sharedInstance.darkGrey
         self.signInButton.layer.cornerRadius = 20.0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        emailTextField.text = ""
+        companyTextField.text = ""
+        passwordTextField.text = ""
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
     
@@ -125,12 +146,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (results, error) in
             
             if(error == nil){
-                print("log in successful!")
+                
+                // setting the user company //
+                UserDefaultData.sharedInstance.setUserCompany(company: self.companyTextField.text!)
+                let tabBarView = self.storyboard?.instantiateViewController(withIdentifier: "TabBar") as! MainTabBarController
+                self.navigationController?.pushViewController(tabBarView, animated: true)
             }else{
-                print("no go!")
+                self.alertUser(title: "Error signing in", message: "There was an error signing in.  Please try again")
             }
         }
-        
+    }
+    
+    func alertUser(title:String, message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let okButton = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
         
     }
     
