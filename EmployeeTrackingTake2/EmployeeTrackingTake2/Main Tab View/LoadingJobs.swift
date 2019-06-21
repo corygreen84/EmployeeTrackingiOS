@@ -20,9 +20,12 @@ class LoadingJobs: NSObject {
     var company:String?
     var email:String?
     var id:String?
+
+    var arrayOfJobIds:[String] = []
+    var arrayOfJobs:[Jobs] = []
+    var dictionaryOfJobs:[String:Jobs] = [:]
     
-    var arrayofJobs:[Jobs] = []
-    //var dictionaryOfJobs:[String: Jobs] = [:]
+    var count = 0
     
     var db = Firestore.firestore()
     
@@ -65,6 +68,13 @@ class LoadingJobs: NSObject {
     }
     
     
+    
+    
+    
+    
+    
+    
+    
     // this is dynamic and updates when there is new data //
     func loadUserJobIds(company:String, id:String){
         let employeeRef = db.collection("companies").document(company).collection("employees").document(id)
@@ -73,11 +83,12 @@ class LoadingJobs: NSObject {
                 guard let data = doc!.data() else{
                     return
                 }
+
+                self.arrayOfJobIds = data["jobs"] as? NSArray as! [String]
                 
-                let jobs = data["jobs"] as? NSArray as! [String]
-                
-                for job in jobs{
-                    self.loadJobs(company: company, jobId: job, jobsCount:jobs.count)
+                for job in self.arrayOfJobIds{
+                    
+                    self.loadJobs(company: company, jobId: job)
                 }
             }
         }
@@ -85,7 +96,7 @@ class LoadingJobs: NSObject {
     
     
     // this is dynamic and updates when there is new data //
-    func loadJobs(company:String, jobId:String, jobsCount:Int){
+    func loadJobs(company:String, jobId:String){
         let jobRef = db.collection("companies").document(company).collection("jobs").document(jobId)
         jobRef.addSnapshotListener { (doc, err) in
             if(err == nil){
@@ -110,14 +121,25 @@ class LoadingJobs: NSObject {
                 newJob.coordinates = locationCLLocation
                 newJob.notes = notes
                 newJob.id = jobId
+
+                self.arrayOfJobs.append(newJob)
                 
-                // passing this info to a dictionary with a key of job id //
-                // if new data is passed in, the key will stay the same //
-                // effectively overriding
-                self.arrayofJobs.append(newJob)
+                if(self.arrayOfJobs.count == self.arrayOfJobIds.count){
+                    for jobs in self.arrayOfJobs{
+                        if(self.arrayOfJobIds.contains(jobs.id!)){
+                            
+                        }
+                    }
+                }
                 
-                self.delegate?.returnDataChanged(jobId: jobId)
-                self.delegate?.returnJobData(jobs: self.arrayofJobs)
+                
+                /*
+                if(self.arrayOfJobs.count == self.arrayOfJobIds.count){
+                    self.delegate?.returnDataChanged(jobId: jobId)
+                    self.delegate?.returnJobData(jobs: self.arrayOfJobs)
+                }
+                */
+
             }
         }
     }
