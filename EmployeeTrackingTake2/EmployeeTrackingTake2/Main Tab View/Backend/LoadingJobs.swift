@@ -12,7 +12,6 @@ import CoreLocation
 
 @objc protocol ReturnJobDataDelegate{
     func returnJobData(jobs:[Jobs])
-    func returnDataChanged(jobId:String)
 }
 
 class LoadingJobs: NSObject {
@@ -23,13 +22,15 @@ class LoadingJobs: NSObject {
 
     var arrayOfJobIds:[String] = []
     var arrayOfJobs:[Jobs] = []
-    var dictionaryOfJobs:[String:Jobs] = [:]
     
     var count = 0
     
     var db = Firestore.firestore()
     
     var delegate:ReturnJobDataDelegate?
+    
+    var employeeRef:ListenerRegistration?
+    var jobRef:ListenerRegistration?
     
     override init(){
         super.init()
@@ -157,16 +158,7 @@ class LoadingJobs: NSObject {
                 
                 
                 
-                
                 self.delegate?.returnJobData(jobs: self.arrayOfJobs)
-                
-                
-                /*
-                if(self.arrayOfJobs.count == self.arrayOfJobIds.count){
-                    self.delegate?.returnDataChanged(jobId: jobId)
-                    self.delegate?.returnJobData(jobs: self.arrayOfJobs)
-                }
-                */
 
             }
         }

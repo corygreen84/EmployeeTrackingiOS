@@ -10,10 +10,11 @@
 		C3054DD5891B0ACCA5793307 /* Pods_EmployeeTrackingTake2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 367BC98DDA7AD821D5373341 /* Pods_EmployeeTrackingTake2.framework */; };
 		E5066C7A22BD3BB100CF25D4 /* Jobs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5066C7922BD3BB100CF25D4 /* Jobs.swift */; };
 		E5066C7C22BD46AF00CF25D4 /* JobsCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5066C7B22BD46AF00CF25D4 /* JobsCustomCell.swift */; };
+		E5066C7E22BD739100CF25D4 /* ClearSeperatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5066C7D22BD739100CF25D4 /* ClearSeperatorCell.swift */; };
+		E5066C8322BD754A00CF25D4 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5066C8222BD754A00CF25D4 /* DetailsViewController.swift */; };
 		E55F4B8122BC0F63004B682B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8022BC0F63004B682B /* Colors.swift */; };
 		E55F4B8622BC1C8E004B682B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */; };
 		E55F4B8922BC1EB6004B682B /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8822BC1EB6004B682B /* JobsViewController.swift */; };
-		E55F4B8B22BC25E4004B682B /* UserDefaultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8A22BC25E4004B682B /* UserDefaultData.swift */; };
 		E55F4B8D22BC35B1004B682B /* LoadingJobs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */; };
 		E5DA05E122BC008A0039CC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA05E022BC008A0039CC58 /* AppDelegate.swift */; };
 		E5DA05E322BC008A0039CC58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA05E222BC008A0039CC58 /* ViewController.swift */; };
@@ -30,10 +31,11 @@
 		367BC98DDA7AD821D5373341 /* Pods_EmployeeTrackingTake2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmployeeTrackingTake2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5066C7922BD3BB100CF25D4 /* Jobs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jobs.swift; sourceTree = "<group>"; };
 		E5066C7B22BD46AF00CF25D4 /* JobsCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsCustomCell.swift; sourceTree = "<group>"; };
+		E5066C7D22BD739100CF25D4 /* ClearSeperatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearSeperatorCell.swift; sourceTree = "<group>"; };
+		E5066C8222BD754A00CF25D4 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		E55F4B8022BC0F63004B682B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E55F4B8822BC1EB6004B682B /* JobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
-		E55F4B8A22BC25E4004B682B /* UserDefaultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultData.swift; sourceTree = "<group>"; };
 		E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingJobs.swift; sourceTree = "<group>"; };
 		E5DA05DD22BC008A0039CC58 /* EmployeeTrackingTake2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeTrackingTake2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5DA05E022BC008A0039CC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,58 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E5066C7F22BD74DB00CF25D4 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E5066C7B22BD46AF00CF25D4 /* JobsCustomCell.swift */,
+				E5066C7D22BD739100CF25D4 /* ClearSeperatorCell.swift */,
+			);
+			path = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		E5066C8022BD74EF00CF25D4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */,
+				E55F4B8822BC1EB6004B682B /* JobsViewController.swift */,
+				E5066C8222BD754A00CF25D4 /* DetailsViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E5066C8122BD74FA00CF25D4 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */,
+			);
+			path = Backend;
+			sourceTree = "<group>";
+		};
+		E5066C8422BD75A100CF25D4 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				E5DA05E022BC008A0039CC58 /* AppDelegate.swift */,
+			);
+			path = "App Delegate";
+			sourceTree = "<group>";
+		};
+		E5066C8522BD75B300CF25D4 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				E5DA05E422BC008A0039CC58 /* Main.storyboard */,
+				E5DA05E922BC008B0039CC58 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		E5066C8622BD847700CF25D4 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				E5066C7922BD3BB100CF25D4 /* Jobs.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		E55F4B8222BC0F6A004B682B /* Colors */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,20 +148,11 @@
 		E55F4B8722BC1E8E004B682B /* Main Tab View */ = {
 			isa = PBXGroup;
 			children = (
-				E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */,
-				E55F4B8822BC1EB6004B682B /* JobsViewController.swift */,
-				E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */,
-				E5066C7B22BD46AF00CF25D4 /* JobsCustomCell.swift */,
+				E5066C8022BD74EF00CF25D4 /* Views */,
+				E5066C8122BD74FA00CF25D4 /* Backend */,
+				E5066C7F22BD74DB00CF25D4 /* Custom Cells */,
 			);
 			path = "Main Tab View";
-			sourceTree = "<group>";
-		};
-		E55F4B8E22BC35CE004B682B /* User default Data */ = {
-			isa = PBXGroup;
-			children = (
-				E55F4B8A22BC25E4004B682B /* UserDefaultData.swift */,
-			);
-			path = "User default Data";
 			sourceTree = "<group>";
 		};
 		E5DA05D422BC008A0039CC58 = {
@@ -131,18 +176,16 @@
 		E5DA05DF22BC008A0039CC58 /* EmployeeTrackingTake2 */ = {
 			isa = PBXGroup;
 			children = (
-				E5DA05E022BC008A0039CC58 /* AppDelegate.swift */,
+				E5066C8422BD75A100CF25D4 /* App Delegate */,
 				E55F4B8322BC0F7A004B682B /* Main Login */,
-				E5DA05E422BC008A0039CC58 /* Main.storyboard */,
+				E5066C8522BD75B300CF25D4 /* Storyboards */,
 				E5DA05E722BC008B0039CC58 /* Assets.xcassets */,
 				E55F4B8422BC0F8B004B682B /* Pictures */,
-				E5DA05E922BC008B0039CC58 /* LaunchScreen.storyboard */,
 				E5DA05EC22BC008B0039CC58 /* Info.plist */,
 				E5DA05F422BC07B10039CC58 /* GoogleService-Info.plist */,
 				E55F4B8222BC0F6A004B682B /* Colors */,
 				E55F4B8722BC1E8E004B682B /* Main Tab View */,
-				E55F4B8E22BC35CE004B682B /* User default Data */,
-				E5066C7922BD3BB100CF25D4 /* Jobs.swift */,
+				E5066C8622BD847700CF25D4 /* Objects */,
 			);
 			path = EmployeeTrackingTake2;
 			sourceTree = "<group>";
@@ -294,10 +337,11 @@
 				E5DA05E322BC008A0039CC58 /* ViewController.swift in Sources */,
 				E55F4B8122BC0F63004B682B /* Colors.swift in Sources */,
 				E55F4B8622BC1C8E004B682B /* MainTabBarController.swift in Sources */,
+				E5066C8322BD754A00CF25D4 /* DetailsViewController.swift in Sources */,
+				E5066C7E22BD739100CF25D4 /* ClearSeperatorCell.swift in Sources */,
 				E5066C7A22BD3BB100CF25D4 /* Jobs.swift in Sources */,
 				E55F4B8922BC1EB6004B682B /* JobsViewController.swift in Sources */,
 				E5066C7C22BD46AF00CF25D4 /* JobsCustomCell.swift in Sources */,
-				E55F4B8B22BC25E4004B682B /* UserDefaultData.swift in Sources */,
 				E5DA05E122BC008A0039CC58 /* AppDelegate.swift in Sources */,
 				E55F4B8D22BC35B1004B682B /* LoadingJobs.swift in Sources */,
 			);

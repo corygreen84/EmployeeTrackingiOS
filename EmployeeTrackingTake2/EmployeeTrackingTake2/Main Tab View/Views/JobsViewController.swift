@@ -29,10 +29,12 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
         loadUserJobs?.delegate = self
     }
     
+    
+    
+    
+    // **** return from the job data delegate **** //
     func returnDataChanged(jobId: String) {
         
-        // reloading the tableview //
-        //mainTableView.reloadData()
     }
     
     func returnJobData(jobs: [Jobs]) {
@@ -43,27 +45,50 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
+    
+    
+    // **** table view stuff **** //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return passedInJobs.count
+        return passedInJobs.count * 2
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        if(indexPath.row % 2 == 0){
+            return 70
+        }else{
+            return 20
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "JobsCell") as! JobsCustomCell
+        if(indexPath.row % 2 == 0){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "JobsCell") as! JobsCustomCell
         
-        cell.NameLabel.text = passedInJobs[indexPath.row].name
-        cell.AddressLabel.text = passedInJobs[indexPath.row].address
-        cell.DateLabel.text = passedInJobs[indexPath.row].date
+            cell.NameLabel.text = passedInJobs[indexPath.row / 2].name
+            cell.AddressLabel.text = passedInJobs[indexPath.row / 2].address
+            cell.DateLabel.text = passedInJobs[indexPath.row / 2].date
+            
+            
+            
+            cell.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            cell.layer.cornerRadius = 5.0
         
-        return cell
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ClearCell") as! ClearSeperatorCell
+            
+            return cell
+        }
     }
     
-    
-    
-    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let detailView = self.storyboard?.instantiateViewController(withIdentifier: "Detail") as! DetailsViewController
+        detailView.job = self.passedInJobs[indexPath.row / 2]
+        self.navigationController?.pushViewController(detailView, animated: true)
+        
+    }
     
     
     
@@ -72,7 +97,7 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     override func viewWillAppear(_ animated: Bool) {
-        print("appeared!")
+        
     }
 
 }

@@ -148,7 +148,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if(error == nil){
                 
                 // setting the user company //
-                UserDefaultData.sharedInstance.setUserCompany(company: self.companyTextField.text!)
                 let tabBarView = self.storyboard?.instantiateViewController(withIdentifier: "TabBar") as! MainTabBarController
                 self.navigationController?.pushViewController(tabBarView, animated: true)
             }else{
