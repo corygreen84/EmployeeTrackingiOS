@@ -16,4 +16,5 @@ class Jobs: NSObject {
     var date:String?
     var coordinates: CLLocation?
     var notes:String?
+    var isAtJob:Bool?
 }

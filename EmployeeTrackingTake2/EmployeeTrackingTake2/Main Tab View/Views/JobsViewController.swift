@@ -9,39 +9,49 @@
 import UIKit
 import Firebase
 
-class JobsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ReturnJobDataDelegate {
+class JobsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ReturnJobDataDelegate{
 
     @IBOutlet weak var mainTableView: UITableView!
     
     var company:String?
     var email:String?
-    var loadUserJobs:LoadingJobs?
-    
+
     var passedInJobs:[Jobs] = []
+    
+    var locationTracking:LocationTracking?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mainTableView.delegate = self
         mainTableView.dataSource = self
+
+        // so from here I should load up the user information //
+        // load up their jobs... //
         
-        loadUserJobs = LoadingJobs()
-        loadUserJobs?.delegate = self
+        let loadJobs:LoadingJobs = LoadingJobs()
+        
+        loadJobs.delegate = self
+        loadJobs.loadUserInfo()
+        
+        
+        // get GPS started ... //
+        locationTracking = LocationTracking()
+        
     }
     
     
-    
-    
-    // **** return from the job data delegate **** //
-    func returnDataChanged(jobId: String) {
-        
-    }
-    
-    func returnJobData(jobs: [Jobs]) {
+    // **** returns the array of jobs //
+    func returnJobArray(jobs: [Jobs]) {
         passedInJobs = jobs
+        self.mainTableView.reloadData()
         
-        mainTableView.reloadData()
+        
+        // ...then load in the jobs //
+        locationTracking!.loadJobs(jobs: passedInJobs)
     }
+    
+    
     
     
     
@@ -89,15 +99,6 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.pushViewController(detailView, animated: true)
         
     }
-    
-    
-    
-    
-    
 
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
 
 }

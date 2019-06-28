@@ -22,8 +22,7 @@ class GPSTracking: NSObject, CLLocationManagerDelegate{
     var locationManager:CLLocationManager?
     
     var locationTrackingToggle = false
-    
-    var timer:Timer?
+
     var counter = 0
     
     var arrayOfJobs:[Job] = []

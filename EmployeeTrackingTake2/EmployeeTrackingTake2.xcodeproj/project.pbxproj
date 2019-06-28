@@ -16,6 +16,8 @@
 		E55F4B8622BC1C8E004B682B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */; };
 		E55F4B8922BC1EB6004B682B /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8822BC1EB6004B682B /* JobsViewController.swift */; };
 		E55F4B8D22BC35B1004B682B /* LoadingJobs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */; };
+		E576B3B622C1348E00C0789D /* LocationTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576B3B522C1348E00C0789D /* LocationTracking.swift */; };
+		E576B3BC22C14A5D00C0789D /* SendInfoToServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576B3BB22C14A5D00C0789D /* SendInfoToServer.swift */; };
 		E5DA05E122BC008A0039CC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA05E022BC008A0039CC58 /* AppDelegate.swift */; };
 		E5DA05E322BC008A0039CC58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA05E222BC008A0039CC58 /* ViewController.swift */; };
 		E5DA05E622BC008A0039CC58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5DA05E422BC008A0039CC58 /* Main.storyboard */; };
@@ -37,6 +39,8 @@
 		E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E55F4B8822BC1EB6004B682B /* JobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
 		E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingJobs.swift; sourceTree = "<group>"; };
+		E576B3B522C1348E00C0789D /* LocationTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTracking.swift; sourceTree = "<group>"; };
+		E576B3BB22C14A5D00C0789D /* SendInfoToServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInfoToServer.swift; sourceTree = "<group>"; };
 		E5DA05DD22BC008A0039CC58 /* EmployeeTrackingTake2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeTrackingTake2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5DA05E022BC008A0039CC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5DA05E222BC008A0039CC58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				E55F4B8C22BC35B1004B682B /* LoadingJobs.swift */,
+				E576B3B522C1348E00C0789D /* LocationTracking.swift */,
+				E576B3BB22C14A5D00C0789D /* SendInfoToServer.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -232,6 +238,11 @@
 				TargetAttributes = {
 					E5DA05DC22BC008A0039CC58 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -342,8 +353,10 @@
 				E5066C7A22BD3BB100CF25D4 /* Jobs.swift in Sources */,
 				E55F4B8922BC1EB6004B682B /* JobsViewController.swift in Sources */,
 				E5066C7C22BD46AF00CF25D4 /* JobsCustomCell.swift in Sources */,
+				E576B3BC22C14A5D00C0789D /* SendInfoToServer.swift in Sources */,
 				E5DA05E122BC008A0039CC58 /* AppDelegate.swift in Sources */,
 				E55F4B8D22BC35B1004B682B /* LoadingJobs.swift in Sources */,
+				E576B3B622C1348E00C0789D /* LocationTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

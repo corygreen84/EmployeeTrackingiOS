@@ -11,7 +11,8 @@ import Firebase
 import CoreLocation
 
 @objc protocol ReturnJobDataDelegate{
-    func returnJobData(jobs:[Jobs])
+    @objc optional func returnJobArray(jobs:[Jobs])
+    @objc optional func returnPreliminaryJobsLoaded(done:Bool)
 }
 
 class LoadingJobs: NSObject {
@@ -29,19 +30,21 @@ class LoadingJobs: NSObject {
     
     var delegate:ReturnJobDataDelegate?
     
-    var employeeRef:ListenerRegistration?
-    var jobRef:ListenerRegistration?
+    var employeeRefHandler:ListenerRegistration?
+    var jobRefHandler:ListenerRegistration?
     
-    override init(){
+    
+    
+    override init() {
         super.init()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(removeHandlers), name: NSNotification.Name(rawValue: "loggedOff"), object: nil)
+        
         email = Auth.auth().currentUser?.email
-        loadUserInfo()
+    
     }
     
-    
-    // this is static and only loads once //
-    func loadUserInfo(){
+    func loadUserPreliminaryInfo(){
         
         if(email != nil){
             let userRef = db.collection("users").document(email!)
@@ -50,7 +53,7 @@ class LoadingJobs: NSObject {
                     guard let data = document.data() else{
                         return
                     }
-                
+                    
                     guard let _company = data["company"] else{
                         return
                     }
@@ -62,6 +65,97 @@ class LoadingJobs: NSObject {
                     self.company = (_company as! String)
                     self.id = (_id as! String)
                     
+                    
+                    UserDefaults.standard.set(self.company, forKey: "company")
+                    UserDefaults.standard.set(self.id, forKey: "id")
+                    
+                    self.loadEmployeeInfoFromEmployees(company: self.company!, id: self.id!)
+                    
+                    let sendInfoToServer:SendInfoToServer = SendInfoToServer()
+                    sendInfoToServer.changeStatusInFirebase(status: true, userId: self.id!, userCompany: self.company!)
+                    
+                    self.delegate?.returnPreliminaryJobsLoaded!(done: true)
+                }
+            }
+        }
+    }
+    
+    
+    func loadEmployeeInfoFromEmployees(company:String, id:String){
+        let companiesRef = db.collection("companies").document(company).collection("employees").document(id)
+        companiesRef.getDocument { (document, error) in
+            if let doc = document, document!.exists{
+                guard let data = doc.data() else{
+                    return
+                }
+                
+                guard let employeeNumber = data["employeeNumber"] else{
+                    return
+                }
+                
+                guard let email = data["email"] else{
+                    return
+                }
+                
+                guard let phoneNumber = data["phoneNumber"] else{
+                    return
+                }
+                
+                guard let first = data["first"] else{
+                    return
+                }
+                
+                guard let last = data["last"] else{
+                    return
+                }
+                
+                guard let pass = data["password"] else{
+                    return
+                }
+                
+                
+                UserDefaults.standard.set(employeeNumber, forKey: "employeeNumber")
+                UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.set(phoneNumber, forKey: "phoneNumber")
+                UserDefaults.standard.set(first, forKey: "first")
+                UserDefaults.standard.set(last, forKey: "last")
+                UserDefaults.standard.set(pass, forKey: "pass")
+
+                // notification for when the user info has been loaded into the system //
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "doneLoadingUserInfo"), object: nil)
+                
+                print("set")
+            }else{
+                print("document doesnt exist")
+            }
+        }
+    }
+    
+
+    // this is static and only loads once //
+    func loadUserInfo(){
+
+        if(email != nil){
+            let userRef = db.collection("users").document(email!)
+            userRef.getDocument { (doc, err) in
+                if let document = doc, doc!.exists{
+                    guard let data = document.data() else{
+                        return
+                    }
+                    
+                    guard let _company = data["company"] else{
+                        return
+                    }
+                    
+                    guard let _id = data["id"] else{
+                        return
+                    }
+                    
+                    self.company = (_company as! String)
+                    self.id = (_id as! String)
+                    
+                    self.loadEmployeeInfoFromEmployees(company: self.company!, id: self.id!)
+ 
                     self.loadUserJobIds(company: self.company!, id: self.id!)
                 }
             }
@@ -79,7 +173,7 @@ class LoadingJobs: NSObject {
     // this is dynamic and updates when there is new data //
     func loadUserJobIds(company:String, id:String){
         let employeeRef = db.collection("companies").document(company).collection("employees").document(id)
-        employeeRef.addSnapshotListener { (doc, err) in
+        employeeRefHandler = employeeRef.addSnapshotListener { (doc, err) in
             if(err == nil){
                 guard let data = doc!.data() else{
                     return
@@ -94,13 +188,14 @@ class LoadingJobs: NSObject {
                 }
             }
         }
+        
     }
     
     
     // this is dynamic and updates when there is new data //
     func loadJobs(company:String, jobId:String){
         let jobRef = db.collection("companies").document(company).collection("jobs").document(jobId)
-        jobRef.addSnapshotListener { (doc, err) in
+        jobRefHandler = jobRef.addSnapshotListener { (doc, err) in
             if(err == nil){
                 guard let data = doc!.data() else{
                     return
@@ -143,7 +238,6 @@ class LoadingJobs: NSObject {
                         self.arrayOfJobs.remove(at: indexFound)
                         self.arrayOfJobs.append(newJob)
                     }
-                    
                 }
                 
                 
@@ -157,10 +251,16 @@ class LoadingJobs: NSObject {
                 }
                 
                 
-                
-                self.delegate?.returnJobData(jobs: self.arrayOfJobs)
-
+                if(self.arrayOfJobIds.count == self.arrayOfJobs.count){
+                    self.delegate?.returnJobArray!(jobs: self.arrayOfJobs)
+                    
+                }
             }
         }
+    }
+
+    @objc func removeHandlers(){
+        self.employeeRefHandler?.remove()
+        self.jobRefHandler?.remove()
     }
 }

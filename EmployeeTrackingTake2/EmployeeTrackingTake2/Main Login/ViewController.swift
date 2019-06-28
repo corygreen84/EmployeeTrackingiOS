@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, ReturnJobDataDelegate {
 
     @IBOutlet weak var textFieldView: UIView!
     @IBOutlet weak var signInButton: UIButton!
@@ -17,25 +17,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var companyTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    
     var emailToggle = false
     var companyToggle = false
     var employeePasswordToggle = false
     
+    var viewUp = false
+    
+    var loadUserInfo:LoadingJobs?
+    
     var handle: AuthStateDidChangeListenerHandle?
     
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
         
-        // if the user is still signed in //
-        // push them to the main page //
-        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            let tabBarView = self.storyboard?.instantiateViewController(withIdentifier: "TabBar") as! MainTabBarController
-            self.navigationController?.pushViewController(tabBarView, animated: true)
-        }
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+ 
         emailTextField.delegate = self
         companyTextField.delegate = self
         passwordTextField.delegate = self
@@ -56,10 +57,36 @@ class ViewController: UIViewController, UITextFieldDelegate {
         emailTextField.text = ""
         companyTextField.text = ""
         passwordTextField.text = ""
+        
+        signInButton.isEnabled = false
+        signInButton.backgroundColor = Colors.sharedInstance.darkGrey
+        
+        viewUp = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Auth.auth().removeStateDidChangeListener(handle!)
+        dismissKeyBoard()
+    }
+    
+    
+    @objc func keyboardDidShow(notif:NSNotification){
+        if(!viewUp){
+            UIView.animate(withDuration: 0.1, animations: {
+                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 140, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }) { (complete) in
+                self.viewUp = true
+            }
+        }
+    }
+    
+    @objc func keyboardDidHide(notif:NSNotification){
+        if(viewUp){
+            UIView.animate(withDuration: 0.1, animations: {
+                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y + 140, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }) { (complete) in
+                self.viewUp = false
+            }
+        }
     }
     
     
@@ -141,20 +168,51 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signInOnClick(_ sender: UIButton) {
-        
+
         // from here we sign the user in //
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (results, error) in
             
             if(error == nil){
+                let db = Firestore.firestore()
                 
-                // setting the user company //
-                let tabBarView = self.storyboard?.instantiateViewController(withIdentifier: "TabBar") as! MainTabBarController
-                self.navigationController?.pushViewController(tabBarView, animated: true)
+                let companyRef = db.collection("companies").document(self.companyTextField.text!)
+                companyRef.getDocument(completion: { (document, error) in
+                    if(document!.exists){
+
+                        // loading user info and logging in //
+                        self.loadUserInfo = LoadingJobs()
+                        self.loadUserInfo?.delegate = self
+                        self.loadUserInfo?.loadUserPreliminaryInfo()
+                    
+                        
+                    }else{
+                        
+                        self.alertUser(title: "Error signing in", message: "The company name does not match our records.  Please try again")
+                        do{
+                            let firebaseAuth = Auth.auth()
+                            try firebaseAuth.signOut()
+                        }catch let signoutError as NSError{
+                            print("error signing out \(signoutError)")
+                        }
+                    }
+                })
+                
             }else{
                 self.alertUser(title: "Error signing in", message: "There was an error signing in.  Please try again")
             }
         }
     }
+
+    func returnPreliminaryJobsLoaded(done: Bool) {
+        if(done){
+            
+            // if the job has finished loading the preliminary info //
+            let tabBarView = self.storyboard?.instantiateViewController(withIdentifier: "TabBar") as! MainTabBarController
+            self.navigationController?.pushViewController(tabBarView, animated: true)
+        }
+    }
+    
+    
     
     func alertUser(title:String, message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -163,8 +221,5 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true, completion: nil)
         
     }
-    
-
-
 }
 
