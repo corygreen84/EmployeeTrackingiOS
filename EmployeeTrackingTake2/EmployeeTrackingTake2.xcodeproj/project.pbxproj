@@ -12,6 +12,7 @@
 		E5066C7C22BD46AF00CF25D4 /* JobsCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5066C7B22BD46AF00CF25D4 /* JobsCustomCell.swift */; };
 		E5066C7E22BD739100CF25D4 /* ClearSeperatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5066C7D22BD739100CF25D4 /* ClearSeperatorCell.swift */; };
 		E5066C8322BD754A00CF25D4 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5066C8222BD754A00CF25D4 /* DetailsViewController.swift */; };
+		E549467522CAAC7200968B9F /* Backbone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549467422CAAC7200968B9F /* Backbone.swift */; };
 		E55F4B8122BC0F63004B682B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8022BC0F63004B682B /* Colors.swift */; };
 		E55F4B8622BC1C8E004B682B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */; };
 		E55F4B8922BC1EB6004B682B /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55F4B8822BC1EB6004B682B /* JobsViewController.swift */; };
@@ -35,6 +36,7 @@
 		E5066C7B22BD46AF00CF25D4 /* JobsCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsCustomCell.swift; sourceTree = "<group>"; };
 		E5066C7D22BD739100CF25D4 /* ClearSeperatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearSeperatorCell.swift; sourceTree = "<group>"; };
 		E5066C8222BD754A00CF25D4 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		E549467422CAAC7200968B9F /* Backbone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backbone.swift; sourceTree = "<group>"; };
 		E55F4B8022BC0F63004B682B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E55F4B8822BC1EB6004B682B /* JobsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
@@ -86,8 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				E55F4B8522BC1C8E004B682B /* MainTabBarController.swift */,
-				E55F4B8822BC1EB6004B682B /* JobsViewController.swift */,
-				E5066C8222BD754A00CF25D4 /* DetailsViewController.swift */,
+				E549467622CBC22E00968B9F /* Jobs and Detail Views */,
+				E549467422CAAC7200968B9F /* Backbone.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,6 +127,15 @@
 				E5066C7922BD3BB100CF25D4 /* Jobs.swift */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		E549467622CBC22E00968B9F /* Jobs and Detail Views */ = {
+			isa = PBXGroup;
+			children = (
+				E55F4B8822BC1EB6004B682B /* JobsViewController.swift */,
+				E5066C8222BD754A00CF25D4 /* DetailsViewController.swift */,
+			);
+			path = "Jobs and Detail Views";
 			sourceTree = "<group>";
 		};
 		E55F4B8222BC0F6A004B682B /* Colors */ = {
@@ -357,6 +368,7 @@
 				E5DA05E122BC008A0039CC58 /* AppDelegate.swift in Sources */,
 				E55F4B8D22BC35B1004B682B /* LoadingJobs.swift in Sources */,
 				E576B3B622C1348E00C0789D /* LocationTracking.swift in Sources */,
+				E549467522CAAC7200968B9F /* Backbone.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

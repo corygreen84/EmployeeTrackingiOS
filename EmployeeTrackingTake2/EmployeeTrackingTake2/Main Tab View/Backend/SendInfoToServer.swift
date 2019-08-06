@@ -70,22 +70,10 @@ class SendInfoToServer: NSObject {
                     
                 }else{
 
-                    let firebaseAuth = Auth.auth()
-                    do{
-                    
-                        // signing out of firebase //
-                        try firebaseAuth.signOut()
-                        
-                        
-                    }catch let signOutError as NSError{
-                        print("error signing out \(signOutError)")
-                    }
-                    
                     self.delegate?.returnLogOutStatus(done: true)
 
                 }
             }
-            
         }
     }
     
@@ -97,7 +85,6 @@ class SendInfoToServer: NSObject {
 
         let userId = UserDefaults.standard.object(forKey: "id") as! String
         let userCompany = UserDefaults.standard.object(forKey: "company") as! String
-        
         
         
         // constructing the event object //
@@ -118,7 +105,6 @@ class SendInfoToServer: NSObject {
                 
             }
         }
-        
     }
     
     func sendInfoToServerOffJob(){

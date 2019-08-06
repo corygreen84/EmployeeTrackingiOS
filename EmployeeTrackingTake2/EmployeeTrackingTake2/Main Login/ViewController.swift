@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITextFieldDelegate, ReturnJobDataDelega
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var companyTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var activityWheel: UIActivityIndicatorView!
     
     var emailToggle = false
     var companyToggle = false
@@ -45,6 +46,15 @@ class ViewController: UIViewController, UITextFieldDelegate, ReturnJobDataDelega
         companyTextField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
         
+        emailTextField.text = ""
+        companyTextField.text = ""
+        passwordTextField.text = ""
+        
+        signInButton.isEnabled = false
+        signInButton.backgroundColor = Colors.sharedInstance.darkGrey
+        
+        viewUp = false
+        
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         view.addGestureRecognizer(tapGesture)
     
@@ -53,10 +63,17 @@ class ViewController: UIViewController, UITextFieldDelegate, ReturnJobDataDelega
         self.signInButton.layer.cornerRadius = 20.0
     }
     
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         emailTextField.text = ""
         companyTextField.text = ""
         passwordTextField.text = ""
+        
+        emailToggle = false
+        companyToggle = false
+        employeePasswordToggle = false
         
         signInButton.isEnabled = false
         signInButton.backgroundColor = Colors.sharedInstance.darkGrey
@@ -169,6 +186,8 @@ class ViewController: UIViewController, UITextFieldDelegate, ReturnJobDataDelega
     
     @IBAction func signInOnClick(_ sender: UIButton) {
 
+        moveSignInButtonBack()
+        
         // from here we sign the user in //
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (results, error) in
             
@@ -201,10 +220,15 @@ class ViewController: UIViewController, UITextFieldDelegate, ReturnJobDataDelega
                 self.alertUser(title: "Error signing in", message: "There was an error signing in.  Please try again")
             }
         }
+ 
     }
 
+    
+    // once the preliminary jobs has loaded, we push the view to tab bar //
     func returnPreliminaryJobsLoaded(done: Bool) {
         if(done){
+            
+            moveSignInButtonForward()
             
             // if the job has finished loading the preliminary info //
             let tabBarView = self.storyboard?.instantiateViewController(withIdentifier: "TabBar") as! MainTabBarController
@@ -220,6 +244,23 @@ class ViewController: UIViewController, UITextFieldDelegate, ReturnJobDataDelega
         alert.addAction(okButton)
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    
+    func moveSignInButtonBack(){
+        UIView.animate(withDuration: 0.2, animations: {
+            self.signInButton.frame = CGRect(x: self.signInButton.frame.origin.x, y: self.signInButton.frame.origin.y, width: self.signInButton.frame.size.width - 40, height: self.signInButton.frame.size.height)
+        }) { (complete) in
+            self.activityWheel.startAnimating()
+        }
+    }
+    
+    func moveSignInButtonForward(){
+        UIView.animate(withDuration: 0.2, animations: {
+            self.signInButton.frame = CGRect(x: self.signInButton.frame.origin.x, y: self.signInButton.frame.origin.y, width: self.signInButton.frame.size.width + 40, height: self.signInButton.frame.size.height)
+        }) { (complete) in
+            self.activityWheel.stopAnimating()
+        }
     }
 }
 

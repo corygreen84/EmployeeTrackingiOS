@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class JobsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ReturnJobDataDelegate{
+class JobsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ReturnBackboneDelegate{
 
     @IBOutlet weak var mainTableView: UITableView!
     
@@ -26,30 +26,29 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
         mainTableView.delegate = self
         mainTableView.dataSource = self
 
-        // so from here I should load up the user information //
-        // load up their jobs... //
-        
-        let loadJobs:LoadingJobs = LoadingJobs()
-        
-        loadJobs.delegate = self
-        loadJobs.loadUserInfo()
-        
-        
+        // loading the user data through the back bone //
+        Backbone.sharedInstance.delegate = self
+        Backbone.sharedInstance.loadUserJobsBackgone()
+
         // get GPS started ... //
         locationTracking = LocationTracking()
         
     }
     
     
-    // **** returns the array of jobs //
-    func returnJobArray(jobs: [Jobs]) {
+    // backbone return functions //
+    func returnPreliminaryJobsLoadedBackbone(done: Bool) {
+        // not really used by this controller //
+    }
+    
+    func returnJobsArrayBackbone(jobs: [Jobs]) {
         passedInJobs = jobs
         self.mainTableView.reloadData()
-        
-        
-        // ...then load in the jobs //
+
+        // load the jobs into the location tracking //
         locationTracking!.loadJobs(jobs: passedInJobs)
     }
+
     
     
     
@@ -69,6 +68,9 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 20
         }
     }
+    
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.row % 2 == 0){
@@ -92,6 +94,8 @@ class JobsViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let detailView = self.storyboard?.instantiateViewController(withIdentifier: "Detail") as! DetailsViewController

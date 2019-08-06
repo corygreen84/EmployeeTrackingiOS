@@ -34,7 +34,6 @@ class LoadingJobs: NSObject {
     var jobRefHandler:ListenerRegistration?
     
     
-    
     override init() {
         super.init()
         
@@ -71,6 +70,8 @@ class LoadingJobs: NSObject {
                     
                     self.loadEmployeeInfoFromEmployees(company: self.company!, id: self.id!)
                     
+                    
+                    // sending info back to the server that the user has logged in //
                     let sendInfoToServer:SendInfoToServer = SendInfoToServer()
                     sendInfoToServer.changeStatusInFirebase(status: true, userId: self.id!, userCompany: self.company!)
                     
@@ -79,6 +80,8 @@ class LoadingJobs: NSObject {
             }
         }
     }
+    
+    
     
     
     func loadEmployeeInfoFromEmployees(company:String, id:String){
@@ -253,7 +256,6 @@ class LoadingJobs: NSObject {
                 
                 if(self.arrayOfJobIds.count == self.arrayOfJobs.count){
                     self.delegate?.returnJobArray!(jobs: self.arrayOfJobs)
-                    
                 }
             }
         }

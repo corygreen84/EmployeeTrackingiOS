@@ -11,30 +11,31 @@ import CoreLocation
 
 class LocationTracking: NSObject, CLLocationManagerDelegate{
     
-    var locationManager:CLLocationManager?
-    var arrayOfJobs:[Jobs]?
-    
-    var initialLocation:CLLocation?
-    var locationTrackingToggle = false
-    
-    var loggedOffToggle = false
+    var passedInJobs:[Jobs] = []
     
     var radius:Int = 100
     
-    var jobName = ""
+    //var jobName = ""
+    //var jobAddress = ""
+    
+    var locationManager:CLLocationManager?
+    var initialLocation:CLLocation?
+    
+    var loggedOffToggle = false
+    var locationTrackingToggle = false
     
     var sendInfoToServer:SendInfoToServer?
     
     override init() {
         super.init()
         
+        sendInfoToServer = SendInfoToServer()
         
         // notification to stop gps updates //
         NotificationCenter.default.addObserver(self, selector: #selector(loggedOff), name: NSNotification.Name(rawValue: "loggedOff"), object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(terminated), name: NSNotification.Name(rawValue: "terminated"), object: nil)
         
-        sendInfoToServer = SendInfoToServer()
- 
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestAlwaysAuthorization()
@@ -42,24 +43,18 @@ class LocationTracking: NSObject, CLLocationManagerDelegate{
         locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager?.pausesLocationUpdatesAutomatically = false
         
-        if(UserDefaults.standard.object(forKey: "jobName") != nil){
-            jobName = UserDefaults.standard.object(forKey: "jobName") as! String
-        }else{
-            jobName = ""
-        }
+        //UserDefaults.standard.removeObject(forKey: "jobName")
+        //UserDefaults.standard.removeObject(forKey: "jobAddress")
+        
     }
-
+    
     
     
     func loadJobs(jobs:[Jobs]){
         if(loggedOffToggle == false){
-            arrayOfJobs = jobs
-        
-            if(arrayOfJobs!.count != 0){
-                if(locationTrackingToggle == false){
-                    print("starting")
-                    startLocationUpdates()
-                }
+            passedInJobs = jobs
+            if(passedInJobs.count != 0){
+                startLocationUpdates()
             }else{
                 stopLocationUpdates()
             }
@@ -70,51 +65,94 @@ class LocationTracking: NSObject, CLLocationManagerDelegate{
     
     
     
-    // starting and stopping location services //
     func startLocationUpdates(){
 
-        if(UserDefaults.standard.object(forKey: "jobName") != nil){
-            jobName = UserDefaults.standard.object(forKey: "jobName") as! String
-        }else{
-            jobName = ""
-        }
-        //jobName = ""
-        
         self.singleLocationUpdate()
         locationManager?.startUpdatingLocation()
         locationTrackingToggle = true
     }
     
+    func singleLocationUpdate(){
+        self.locationManager?.requestLocation()
+    }
+    
+    func stopLocationUpdates(){
 
-    @objc func loggedOff(){
-        loggedOffToggle = true
-        stopLocationUpdates()
-    }
-    
-    
-    
-    @objc func terminated(){
-        loggedOffToggle = true
-        stopLocationUpdates()
-        
-        let userId = UserDefaults.standard.object(forKey: "id") as! String
-        let userCompany = UserDefaults.standard.object(forKey: "company") as! String
-        
-        sendInfoToServer!.changeStatusInFirebase(status: false, userId: userId, userCompany: userCompany)
-    }
-    
-    
-    
-    @objc func stopLocationUpdates(){
-        UserDefaults.standard.set("", forKey: "jobName")
-        jobName = UserDefaults.standard.object(forKey: "jobName") as! String
         locationTrackingToggle = false
         locationManager?.stopUpdatingLocation()
     }
     
-    func singleLocationUpdate(){
-        self.locationManager?.requestLocation()
+    
+    
+    
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let lastLocation:CLLocation = locations.last!
+        
+        if(initialLocation == nil){
+            initialLocation = lastLocation
+        }else{
+            var atAJob = false
+            
+            for jobs in passedInJobs{
+                let distanceFromJob = jobs.coordinates?.distance(from: CLLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude))
+                
+                // if the user is within the circle of a job //
+                if(Int(distanceFromJob!) <= radius){
+                    atAJob = true
+                    
+                    initialLocation = lastLocation
+   
+                    
+                    var jobName = ""
+                    var jobAddress = ""
+                    if(UserDefaults.standard.object(forKey: "jobName") != nil){
+                        jobName = UserDefaults.standard.object(forKey: "jobName") as! String
+                    }
+                    
+                    if(UserDefaults.standard.object(forKey: "jobAddress") != nil){
+                        jobAddress = UserDefaults.standard.object(forKey: "jobAddress") as! String
+                    }
+
+
+                    
+                    if(jobs.name != jobName || jobs.address != jobAddress){
+                        // sends info that the user has logged out //
+                        sendInfoToServer!.sendInfoToServerAtJob(jobId: jobs.id!, jobName: jobs.name!, jobAddress: jobs.address!, isAtJob: atAJob)
+                        
+                        UserDefaults.standard.set(jobs.name, forKey: "jobName")
+                        UserDefaults.standard.set(jobs.address, forKey: "jobAddress")
+                    }
+                }
+            }
+            // for when the user is not at any job //
+            if(atAJob == false){
+                initialLocation = lastLocation
+
+                var jobName = ""
+                var jobAddress = ""
+                if(UserDefaults.standard.object(forKey: "jobName") != nil){
+                    jobName = UserDefaults.standard.object(forKey: "jobName") as! String
+                }
+                
+                if(UserDefaults.standard.object(forKey: "jobAddress") != nil){
+                    jobAddress = UserDefaults.standard.object(forKey: "jobAddress") as! String
+                }
+                if(jobName != "Offsite" || jobAddress != "Offsite"){
+                    
+                    sendInfoToServer!.sendInfoToServerOffJob()
+                    UserDefaults.standard.set("Offsite", forKey: "jobName")
+                    UserDefaults.standard.set("Offsite", forKey: "jobAddress")
+                }
+                
+            }
+        }
     }
+    
+    
+    
     
     
     
@@ -124,54 +162,28 @@ class LocationTracking: NSObject, CLLocationManagerDelegate{
     
     
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    // from the notification center //
+    @objc func loggedOff(){
         
-        let lastLocation:CLLocation = locations.last!
+        UserDefaults.standard.set("Offsite", forKey: "jobName")
+        UserDefaults.standard.set("Offsite", forKey: "jobAddress")
         
-        // getting the first location //
-        if(initialLocation == nil){
-            initialLocation = lastLocation
-        }else{
-            
-            var atAJob = false
-            
-            for jobs in arrayOfJobs!{
-                let distanceFromJob = jobs.coordinates?.distance(from: CLLocation(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude))
-                
-                // if the user is within the circle of a job //
-                if(Int(distanceFromJob!) <= radius){
-                    atAJob = true
-                    
-                    initialLocation = lastLocation
-                    
-                
-                    if(jobs.name! != jobName){
-                        // sends info that the user has logged out //
-                        sendInfoToServer!.sendInfoToServerAtJob(jobId: jobs.id!, jobName: jobs.name!, jobAddress: jobs.address!, isAtJob: atAJob)
-                        
-                        jobName = jobs.name!
-                        UserDefaults.standard.set(jobName, forKey: "jobName")
-                        
-                    }
-                }
-            }
-            
-            // for when the user is not at any job //
-            if(atAJob == false){
-                initialLocation = lastLocation
-                
-                // send info off to server //
-                if(jobName != "Offsite"){
-
-                    sendInfoToServer!.sendInfoToServerOffJob()
-                    jobName = "Offsite"
-                    UserDefaults.standard.set(jobName, forKey: "jobName")
-                    
-                }
-            }
-        }
+        loggedOffToggle = true
+        stopLocationUpdates()
     }
     
-    
-    
+    @objc func terminated(){
+        
+        UserDefaults.standard.set("Offsite", forKey: "jobName")
+        UserDefaults.standard.set("Offsite", forKey: "jobAddress")
+        
+        loggedOffToggle = true
+        stopLocationUpdates()
+        
+        let userId = UserDefaults.standard.object(forKey: "id") as! String
+        let userCompany = UserDefaults.standard.object(forKey: "company") as! String
+        
+        sendInfoToServer!.changeStatusInFirebase(status: false, userId: userId, userCompany: userCompany)
+    }
+
 }

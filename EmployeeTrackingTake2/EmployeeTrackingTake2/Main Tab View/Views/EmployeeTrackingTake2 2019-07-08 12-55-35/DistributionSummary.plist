@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EmployeeTrackingTake2.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+				<key>dateExpires</key>
+				<string>5/26/20</string>
+				<key>type</key>
+				<string>iOS Development</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+						<key>dateExpires</key>
+						<string>5/26/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>GTMSessionFetcher.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>YM794S99T5</string>
+						<key>name</key>
+						<string>Cory Green</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+						<key>dateExpires</key>
+						<string>5/26/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>GoogleUtilities.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>YM794S99T5</string>
+						<key>name</key>
+						<string>Cory Green</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+						<key>dateExpires</key>
+						<string>5/26/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>Protobuf.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>YM794S99T5</string>
+						<key>name</key>
+						<string>Cory Green</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+						<key>dateExpires</key>
+						<string>5/26/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>grpc.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>YM794S99T5</string>
+						<key>name</key>
+						<string>Cory Green</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+						<key>dateExpires</key>
+						<string>5/26/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>grpcpp.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>YM794S99T5</string>
+						<key>name</key>
+						<string>Cory Green</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+						<key>dateExpires</key>
+						<string>5/26/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>leveldb.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>YM794S99T5</string>
+						<key>name</key>
+						<string>Cory Green</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+						<key>dateExpires</key>
+						<string>5/26/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>nanopb.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>YM794S99T5</string>
+						<key>name</key>
+						<string>Cory Green</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>DB954BC4A7B89FF9367D0230375E70AB3DE83212</string>
+						<key>dateExpires</key>
+						<string>5/26/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>openssl_grpc.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>YM794S99T5</string>
+						<key>name</key>
+						<string>Cory Green</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>YM794S99T5.com.greenmachine.EmployeeTrackingTake2</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>YM794S99T5</string>
+				<key>get-task-allow</key>
+				<true/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>YM794S99T5.com.greenmachine.EmployeeTrackingTake2</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>EmployeeTrackingTake2.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>6c5115a1-b3c8-4ad5-9112-332d9cc52d02</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: *</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>YM794S99T5</string>
+				<key>name</key>
+				<string>Cory Green</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
